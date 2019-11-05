@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    private enum MovementState { idle, walking, jumping, dashing }
+    private enum MovementState { idle, walking, jumping, dashing, knockedBack }
 
     [SerializeField] private float WalkSpeed = 5f;
     [SerializeField]private float jumpSpeed = 1f;
@@ -12,6 +12,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float dashTime = 1f;
     [SerializeField] private float dashSpeed = 10f;
     [SerializeField] private int MaxNumberOfJumps = 1;
+    [SerializeField] private float knockBackAmount;
+    [SerializeField] private float knockBackDuration;
+    [SerializeField] private GameObject myHitBox;
 
     private Rigidbody2D myBody;
     private bool canJump = true;
@@ -19,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
     private int numberOfJumps = 0;
     private bool canDash = true;
     private bool isDashing = false;
+    private bool isBeingKnocked = false;
     private Coroutine currentDashTimer;
     private MovementState currentMovementState = MovementState.idle;
 
@@ -31,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (isDashing == false)
+        if (isDashing == false && isBeingKnocked == false)
         {
             handleJumpInput();
             handleDashInput();
@@ -40,7 +44,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        handleXMovement();
+        if (isBeingKnocked == false)
+        {
+            handleXMovement();
+        }
     }
 
     private void handleXMovement()
@@ -58,6 +65,24 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void getKnockedBack(int direction)
+    {
+        isBeingKnocked = true;
+        //start coroutine
+        StartCoroutine(lossInputTimer());
+        //add force
+        myBody.velocity = Vector2.zero;
+        myBody.AddForce(new Vector2(1 * direction,.75f).normalized * knockBackAmount);
+        //disable hit box temporarily
+        myHitBox.SetActive(false);
+    }
+    private IEnumerator lossInputTimer()
+    {
+        yield return new WaitForSeconds(knockBackDuration);
+        //regain control and gain hitbox again
+        isBeingKnocked = false;
+        myHitBox.SetActive(true);
+    }
 
 
     private void jump()

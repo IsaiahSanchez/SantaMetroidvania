@@ -236,7 +236,7 @@ PrefabInstance:
         type: 3}
       propertyPath: myEnemy
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 4353309724461305812}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f99c1b77d153cd2418bba947e419f35b, type: 3}
 --- !u!4 &7477021174459725530 stripped
@@ -252,6 +252,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 729608945556449871}
     m_Modifications:
+    - target: {fileID: -8163801536003986710, guid: b209eb088d861534493edffa12503620,
+        type: 3}
+      propertyPath: DamageAmount
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4010827142904664560, guid: b209eb088d861534493edffa12503620,
         type: 3}
       propertyPath: m_Name
@@ -314,18 +319,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4010827142904664561, guid: b209eb088d861534493edffa12503620,
         type: 3}
-      propertyPath: m_Offset.x
-      value: 0
+      propertyPath: m_Offset.y
+      value: -0.15131518
       objectReference: {fileID: 0}
     - target: {fileID: 4010827142904664561, guid: b209eb088d861534493edffa12503620,
         type: 3}
       propertyPath: m_Size.x
       value: 1.8010798
-      objectReference: {fileID: 0}
-    - target: {fileID: 4010827142904664561, guid: b209eb088d861534493edffa12503620,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: -0.15131518
       objectReference: {fileID: 0}
     - target: {fileID: 4010827142904664561, guid: b209eb088d861534493edffa12503620,
         type: 3}

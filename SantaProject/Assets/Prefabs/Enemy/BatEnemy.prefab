@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7079081635894099481}
   - component: {fileID: 7079081635894099479}
-  - component: {fileID: 7079081635894099480}
+  - component: {fileID: 1491841703}
   m_Layer: 11
   m_Name: BatEnemy
   m_TagString: Untagged
@@ -56,7 +56,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &7079081635894099480
+--- !u!114 &1491841703
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -215,6 +215,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7918348890211021085, guid: f99c1b77d153cd2418bba947e419f35b,
+        type: 3}
+      propertyPath: myEnemy
+      value: 
+      objectReference: {fileID: 1491841703}
     - target: {fileID: 7918348890211021084, guid: f99c1b77d153cd2418bba947e419f35b,
         type: 3}
       propertyPath: m_Offset.x
@@ -225,11 +230,6 @@ PrefabInstance:
       propertyPath: m_Size.x
       value: 0.44935203
       objectReference: {fileID: 0}
-    - target: {fileID: 7918348890211021085, guid: f99c1b77d153cd2418bba947e419f35b,
-        type: 3}
-      propertyPath: myEnemy
-      value: 
-      objectReference: {fileID: 7079081635894099480}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f99c1b77d153cd2418bba947e419f35b, type: 3}
 --- !u!4 &1143443033231253934 stripped
@@ -245,6 +245,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 7079081635894099481}
     m_Modifications:
+    - target: {fileID: -8163801536003986710, guid: b209eb088d861534493edffa12503620,
+        type: 3}
+      propertyPath: DamageAmount
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4010827142904664560, guid: b209eb088d861534493edffa12503620,
         type: 3}
       propertyPath: m_Name
@@ -307,18 +312,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4010827142904664561, guid: b209eb088d861534493edffa12503620,
         type: 3}
-      propertyPath: m_Offset.x
-      value: 0
+      propertyPath: m_Offset.y
+      value: -0.10236034
       objectReference: {fileID: 0}
     - target: {fileID: 4010827142904664561, guid: b209eb088d861534493edffa12503620,
         type: 3}
       propertyPath: m_Size.x
       value: 0.6617662
-      objectReference: {fileID: 0}
-    - target: {fileID: 4010827142904664561, guid: b209eb088d861534493edffa12503620,
-        type: 3}
-      propertyPath: m_Offset.y
-      value: -0.10236034
       objectReference: {fileID: 0}
     - target: {fileID: 4010827142904664561, guid: b209eb088d861534493edffa12503620,
         type: 3}

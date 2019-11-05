@@ -12,6 +12,7 @@ public class PlayerMain : MonoBehaviour
     private bool canThrowSnowball = true;
     private Coroutine mainWaitCoroutine;
     private SnowBall currentSnowball;
+    private float health = 100f;
 
     private PlayerMovement myMovement;
 
@@ -83,4 +84,17 @@ public class PlayerMain : MonoBehaviour
         currentSnowball.disableSnowball();
         canThrowSnowball = true;
     }
+
+    public void TakeDamage(float amount, int direction)
+    {
+        health -= amount;
+        Debug.Log(health);
+        //knockback  need to create function in playermovement script.
+        myMovement.getKnockedBack(direction);
+        if (health <= 0)
+        {
+            //die
+        }
+    }
+
 }
