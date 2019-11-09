@@ -260,9 +260,10 @@ MonoBehaviour:
     type: 3}
   SnowBallThrowSpeed: 18
   timeAfterTeleportToEnableThrowing: 0.25
-  hasDoubleJumpPower: 1
-  hasDashPower: 1
-  hasSnowBallPower: 1
+  hasDoubleJumpPower: 0
+  hasDashPower: 0
+  hasSnowBallPower: 0
+  numberOfPresentsCollected: 0
 --- !u!114 &2807371100502374890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -283,7 +284,7 @@ MonoBehaviour:
   dashTime: 0.25
   dashSpeed: 20
   dashCooldownAmount: 5
-  MaxNumberOfJumps: 2
+  MaxNumberOfJumps: 1
   knockBackAmount: 500
   knockBackDuration: 0.4
   myHitBox: {fileID: 3384048324292040045}

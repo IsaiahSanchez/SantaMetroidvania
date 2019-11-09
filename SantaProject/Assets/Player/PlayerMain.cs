@@ -20,10 +20,32 @@ public class PlayerMain : MonoBehaviour
 
     private PlayerMovement myMovement;
 
+    private void Awake()
+    {
+
+        myMovement = GetComponent<PlayerMovement>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        myMovement = GetComponent<PlayerMovement>();
+        if (hasDoubleJumpPower == true)
+        {
+            hasDoubleJumpPower = false;
+            givePower(0);
+        }
+
+        if (hasDashPower == true)
+        {
+            hasDashPower = false;
+            givePower(1);
+        }
+
+        if (hasSnowBallPower == true)
+        {
+            hasSnowBallPower = false;
+            givePower(2);
+        }
     }
 
     // Update is called once per frame
