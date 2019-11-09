@@ -8,19 +8,24 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float WalkSpeed = 5f;
     [SerializeField]private float jumpSpeed = 1f;
+    [SerializeField] private float jumpUpGravity = .25f;
+    [SerializeField] private float fallDownGravity = 2.5f;
     [SerializeField] private float jumpTime = .5f;
     [SerializeField] private float dashTime = 1f;
     [SerializeField] private float dashSpeed = 10f;
+    [SerializeField] private float dashCooldownAmount = 5f;
     [SerializeField] private int MaxNumberOfJumps = 1;
     [SerializeField] private float knockBackAmount;
     [SerializeField] private float knockBackDuration;
     [SerializeField] private GameObject myHitBox;
 
     private Rigidbody2D myBody;
+    private PlayerMain myPlayer;
+
     private bool canJump = true;
-    private bool isJumping = false;
     private int numberOfJumps = 0;
     private bool canDash = true;
+    private bool isJumping = false;
     private bool isDashing = false;
     private bool isBeingKnocked = false;
     private Coroutine currentDashTimer;
@@ -30,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         myBody = GetComponent<Rigidbody2D>();
+        myPlayer = GetComponent<PlayerMain>();
         numberOfJumps = MaxNumberOfJumps;
     }
 
@@ -91,7 +97,7 @@ public class PlayerMovement : MonoBehaviour
         {
             myBody.velocity = new Vector2(myBody.velocity.x, 0);
             myBody.AddForce(new Vector2(0, jumpSpeed * 4f));
-            myBody.gravityScale = 0f;
+            myBody.gravityScale = jumpUpGravity;
             numberOfJumps--;
             StartCoroutine(countTilDoneJumping());
 
@@ -112,7 +118,7 @@ public class PlayerMovement : MonoBehaviour
     private void stopJumping()
     {
         //myBody.AddForce(new Vector2(0, -(jumpSpeed*10)/4));
-        myBody.gravityScale = 2.5f;
+        myBody.gravityScale = fallDownGravity;
     }
 
     private void handleJumpInput()
@@ -136,17 +142,28 @@ public class PlayerMovement : MonoBehaviour
         canDash = true;
     }
 
-
+    public void notifyOfDoubleJumpGet()
+    {
+        MaxNumberOfJumps = 2;
+        numberOfJumps = MaxNumberOfJumps;
+    }
 
     private void handleDashInput()
     {
         if (Input.GetKeyDown(KeyCode.O))
         {
-            Dash();
+            if (myPlayer.hasDashPower == true)
+            {
+                if (canDash == true)
+                {
+                    Dash();
+                }
+            }
         }
     }
     private void Dash()
     {
+        canDash = false;
         myBody.gravityScale = 0f;
         isDashing = true;
         if (currentDashTimer != null)
@@ -164,7 +181,6 @@ public class PlayerMovement : MonoBehaviour
         {
             myBody.velocity = new Vector2(1 * dashSpeed, 0);
         }
-        
     }
     private IEnumerator DashCount()
     {
@@ -173,7 +189,6 @@ public class PlayerMovement : MonoBehaviour
         myBody.velocity = new Vector2(myBody.velocity.x, myBody.velocity.y * .05f);
         stopJumping();
     }
-
 
     public void TeleportToSnowBallHit(Vector2 SnowBallHitLocation)
     {

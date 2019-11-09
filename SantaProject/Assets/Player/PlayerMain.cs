@@ -13,6 +13,10 @@ public class PlayerMain : MonoBehaviour
     private Coroutine mainWaitCoroutine;
     private SnowBall currentSnowball;
     private float health = 100f;
+    public bool hasDoubleJumpPower = false;
+    public bool hasDashPower = false;
+    public bool hasSnowBallPower = false;
+    public int numberOfPresentsCollected = 0;
 
     private PlayerMovement myMovement;
 
@@ -29,11 +33,39 @@ public class PlayerMain : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.J))
             {
-                throwSnowball();
+                if (hasSnowBallPower == true)
+                {
+                    throwSnowball();
+                }
             }
         }
     }
 
+    public void givePower(int powerIndex)
+    {
+        switch (powerIndex)
+        {
+            case 0:
+                if (hasDoubleJumpPower == false)
+                {
+                    hasDoubleJumpPower = true;
+                    myMovement.notifyOfDoubleJumpGet();
+                }
+                break;
+            case 1:
+                if (hasDashPower == false)
+                {
+                    hasDashPower = true;
+                }
+                break;
+            case 2:
+                if(hasSnowBallPower == false)
+                {
+                    hasSnowBallPower = true;
+                }
+                break;
+        }
+    }
     private void throwSnowball()
     {
         canThrowSnowball = false;

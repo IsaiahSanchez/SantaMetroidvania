@@ -260,6 +260,9 @@ MonoBehaviour:
     type: 3}
   SnowBallThrowSpeed: 18
   timeAfterTeleportToEnableThrowing: 0.25
+  hasDoubleJumpPower: 1
+  hasDashPower: 1
+  hasSnowBallPower: 1
 --- !u!114 &2807371100502374890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -272,11 +275,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93791f5bb2090e44eb11d52481e58912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  WalkSpeed: 3.75
+  WalkSpeed: 3.25
   jumpSpeed: 100
+  jumpUpGravity: 0.35
+  fallDownGravity: 2.5
   jumpTime: 0.135
   dashTime: 0.25
   dashSpeed: 20
+  dashCooldownAmount: 5
   MaxNumberOfJumps: 2
   knockBackAmount: 500
   knockBackDuration: 0.4
@@ -293,7 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25bf29f9e3215cb419b4905e7028a6d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  snowballThrowTransform: {fileID: 1096902844}
+  aimTransform: {fileID: 1096902844}
   graphicTransform: {fileID: 2807371101047251024}
 --- !u!1 &2807371101047251025
 GameObject:
@@ -419,7 +425,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0127440095, y: 0.04309511}
+  m_Offset: {x: -0.013674021, y: 0.06070721}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -430,7 +436,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.6998776, y: 1.7374115}
+  m_Size: {x: 0.54136896, y: 1.578903}
   m_EdgeRadius: 0
 --- !u!1 &7721990981101602327
 GameObject:
