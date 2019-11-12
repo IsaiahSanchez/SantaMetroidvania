@@ -19,6 +19,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float knockBackDuration;
     [SerializeField] private GameObject myHitBox;
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private FeetTrigger myFeet;
 
     private Rigidbody2D myBody;
     private PlayerMain myPlayer;
@@ -97,7 +98,8 @@ public class PlayerMovement : MonoBehaviour
 
     public void fallOffLedge()
     {
-        currentWaitingForFloor = StartCoroutine(waitForFloor());
+        playerAnimator.SetBool("IsJumping", true);
+        //currentWaitingForFloor = StartCoroutine(waitForFloor());
     }
     private IEnumerator waitForFloor()
     {
@@ -215,6 +217,10 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
         myBody.velocity = new Vector2(myBody.velocity.x, myBody.velocity.y * .05f);
         stopJumping();
+        if (myFeet.isTouchingGround)
+        {
+            hasLanded();
+        }
     }
 
     public void TeleportToSnowBallHit(Vector2 SnowBallHitLocation)
@@ -223,4 +229,22 @@ public class PlayerMovement : MonoBehaviour
         transform.position = SnowBallHitLocation + new Vector2(0,1f);
         playerAnimator.SetBool("IsJumping", false);
     }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    if (collision.relativeVelocity.magnitude > 1f)
+    //    {
+    //        if (isDashing == true)
+    //        {
+    //            StopCoroutine(currentDashTimer);
+    //            isDashing = false;
+    //            myBody.velocity = new Vector2(myBody.velocity.x, myBody.velocity.y * .05f);
+    //            stopJumping();
+    //            if (myFeet.isTouchingGround)
+    //            {
+    //                hasLanded();
+    //            }
+    //        }
+    //    }
+    //}
 }
