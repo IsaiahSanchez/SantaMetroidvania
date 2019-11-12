@@ -2,21 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerFacingHandler : MonoBehaviour
+public class FacingHandler : MonoBehaviour
 {
-    [SerializeField] private Transform snowballThrowTransform;
+    [SerializeField] private Transform aimTransform;
     [SerializeField] private Transform graphicTransform;
 
-    private float startingThrowX;
+    private float aimTransformX;
     private int currentFacing = 1;
 
     private void Awake()
     {
-        startingThrowX = snowballThrowTransform.localPosition.x;
+        if (aimTransform != null)
+        {
+            aimTransformX = aimTransform.localPosition.x;
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
         if (Input.GetAxisRaw("Horizontal") != 0)
         {
@@ -29,19 +32,29 @@ public class PlayerFacingHandler : MonoBehaviour
         }
     }
 
-    private void faceOtherDirection(int direction)
+    protected void faceOtherDirection(int direction)
     {
         //handle snowballThrow
-        snowballThrowTransform.localPosition = new Vector2(direction * startingThrowX,snowballThrowTransform.localPosition.y);
+        if (aimTransform != null)
+        {
+            aimTransform.localPosition = new Vector2(direction * aimTransformX, aimTransform.localPosition.y);
+        }
+
         if (direction < 0)
         {
             graphicTransform.eulerAngles = new Vector3(graphicTransform.eulerAngles.x, 180, graphicTransform.eulerAngles.z);
-            snowballThrowTransform.eulerAngles = new Vector3(snowballThrowTransform.eulerAngles.x, 180, snowballThrowTransform.eulerAngles.z);
+            if (aimTransform != null)
+            {
+                aimTransform.eulerAngles = new Vector3(aimTransform.eulerAngles.x, 180, aimTransform.eulerAngles.z);
+            }
         }
         else
         {
             graphicTransform.eulerAngles = new Vector3(graphicTransform.eulerAngles.x, 0, graphicTransform.eulerAngles.z);
-            snowballThrowTransform.eulerAngles = new Vector3(snowballThrowTransform.eulerAngles.x, 0, snowballThrowTransform.eulerAngles.z);
+            if (aimTransform != null)
+            {
+                aimTransform.eulerAngles = new Vector3(aimTransform.eulerAngles.x, 0, aimTransform.eulerAngles.z);
+            }
         }
     }
 }

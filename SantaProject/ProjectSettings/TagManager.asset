@@ -19,9 +19,9 @@ TagManager:
   - EnemyStructure
   - EnemyDamageBox
   - Ground
-  - 
-  - 
-  - 
+  - PlayerStructure
+  - EnemyPlayerDetector
+  - DeadEnemy
   - 
   - 
   - 

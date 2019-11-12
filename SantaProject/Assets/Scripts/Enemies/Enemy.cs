@@ -4,6 +4,9 @@
 [RequireComponent(typeof(Rigidbody2D))]
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] Collider2D DamageWeakPoint;
+    [SerializeField] Collider2D DamageTrigger;
+
     protected Rigidbody2D myBody;
     protected int hitPoints = 1;
 
@@ -12,13 +15,29 @@ public class Enemy : MonoBehaviour
         myBody = GetComponent<Rigidbody2D>();
     }
 
-    public void damageEnemy()
+    public virtual void damageEnemy()
     {
         hitPoints--;
         if (hitPoints <= 0)
         {
-            //disable hitboxes and play dying animation and then do nothing.
+            die();
         }
+    }
+
+    protected virtual void die()
+    {
+        //disable hitboxes and play dying animation and then do nothing.
+        Debug.Log("Ded");
+    }
+
+    public virtual bool playerSeen(GameObject playerRef)
+    {
+        return true;
+    }
+
+    public virtual bool playerLost()
+    {
+        return true;
     }
 
 }

@@ -6,11 +6,26 @@ public class FeetTrigger : MonoBehaviour
 {
     [SerializeField] private PlayerMovement myMovement;
 
+    public bool isTouchingGround { get; private set;}
+    private int numberOfFloorsTouching = 0;
+
+    private void Update()
+    {
+        if (numberOfFloorsTouching > 0)
+        {
+            isTouchingGround = true;
+        }
+        else
+        {
+            isTouchingGround = false;
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 13)
         {
-            myMovement.hasLanded();
+            StartCoroutine(waitToTellTouchingGround());
         }
         else if (collision.gameObject.layer == 10)
         {
@@ -19,5 +34,29 @@ public class FeetTrigger : MonoBehaviour
             collisionBody.AddForce(new Vector2(0, 450f));
         }
 
+    }
+
+    private IEnumerator waitToTellTouchingGround()
+    {
+        yield return new WaitForEndOfFrame();
+        numberOfFloorsTouching++;
+        if (numberOfFloorsTouching == 1)
+        {
+            myMovement.hasLanded();
+        }
+        Debug.Log(isTouchingGround);
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == 13)
+        {
+            numberOfFloorsTouching--;
+            if (numberOfFloorsTouching <= 0)
+            {
+                myMovement.fallOffLedge();
+            }
+            Debug.Log(isTouchingGround);
+        }
     }
 }
