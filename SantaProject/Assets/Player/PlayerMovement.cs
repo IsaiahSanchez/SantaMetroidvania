@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float knockBackAmount;
     [SerializeField] private float knockBackDuration;
     [SerializeField] private GameObject myHitBox;
+    [SerializeField] private Animator playerAnimator;
 
     private Rigidbody2D myBody;
     private PlayerMain myPlayer;
@@ -30,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     private bool isBeingKnocked = false;
     private Coroutine currentDashTimer;
     private MovementState currentMovementState = MovementState.idle;
+
+    private Coroutine currentWaitingForFloor;
 
     // Start is called before the first frame update
     void Start()
@@ -62,10 +65,12 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0)
             {
+                playerAnimator.SetBool("IsRunning", true);
                 myBody.velocity = new Vector2((Input.GetAxisRaw("Horizontal") * WalkSpeed * 100f) * Time.deltaTime, myBody.velocity.y);
             }
             else
             {
+                playerAnimator.SetBool("IsRunning", false);
                 myBody.velocity = new Vector2(0, myBody.velocity.y);
             }
         }
@@ -90,11 +95,22 @@ public class PlayerMovement : MonoBehaviour
         myHitBox.SetActive(true);
     }
 
+    public void fallOffLedge()
+    {
+        currentWaitingForFloor = StartCoroutine(waitForFloor());
+    }
+    private IEnumerator waitForFloor()
+    {
+        yield return new WaitForSeconds(.05f);
+        playerAnimator.SetBool("IsJumping", true);
+    }
+
 
     private void jump()
     {
         if (canJump == true)
         {
+            playerAnimator.SetBool("IsJumping", false);
             myBody.velocity = new Vector2(myBody.velocity.x, 0);
             myBody.AddForce(new Vector2(0, jumpSpeed * 4f));
             myBody.gravityScale = jumpUpGravity;
@@ -109,7 +125,9 @@ public class PlayerMovement : MonoBehaviour
     }
     private IEnumerator countTilDoneJumping()
     {
-        yield return new WaitForSeconds(jumpTime);
+        yield return new WaitForSeconds(jumpTime * .1f);
+        playerAnimator.SetBool("IsJumping", true);
+        yield return new WaitForSeconds(jumpTime * .9f);
         if (isDashing != true)
         {
             stopJumping();
@@ -130,16 +148,24 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.K))
         {
             stopJumping();
         }
     }
     public void hasLanded()
     {
+
         canJump = true;
         numberOfJumps = MaxNumberOfJumps;
         canDash = true;
+
+        if (currentWaitingForFloor != null)
+        {
+            StopCoroutine(currentWaitingForFloor);
+        }
+
+        playerAnimator.SetBool("IsJumping", false);
     }
 
     public void notifyOfDoubleJumpGet()
@@ -163,6 +189,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Dash()
     {
+        playerAnimator.SetBool("IsJumping", true);
         canDash = false;
         myBody.gravityScale = 0f;
         isDashing = true;
@@ -193,6 +220,7 @@ public class PlayerMovement : MonoBehaviour
     public void TeleportToSnowBallHit(Vector2 SnowBallHitLocation)
     {
         myBody.velocity = Vector2.zero;
-        transform.position = SnowBallHitLocation + new Vector2(0,.5f);
+        transform.position = SnowBallHitLocation + new Vector2(0,1f);
+        playerAnimator.SetBool("IsJumping", false);
     }
 }

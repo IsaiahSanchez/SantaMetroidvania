@@ -8,6 +8,7 @@ public class PlayerMain : MonoBehaviour
     [SerializeField] private GameObject SnowBallPrefab;
     [SerializeField] private float SnowBallThrowSpeed;
     [SerializeField] private float timeAfterTeleportToEnableThrowing;
+    [SerializeField] private Animator anim;
 
     private bool canThrowSnowball = true;
     private Coroutine mainWaitCoroutine;
@@ -96,13 +97,20 @@ public class PlayerMain : MonoBehaviour
         {
             GameObject temp = Instantiate(SnowBallPrefab, snowballThrowLocation.position,Quaternion.identity,snowballThrowLocation);
             currentSnowball = temp.GetComponent<SnowBall>();
+            currentSnowball.gameObject.SetActive(false);
         }
         else
         {
-            currentSnowball.gameObject.SetActive(true);
             currentSnowball.transform.position = snowballThrowLocation.position;
             currentSnowball.transform.parent = snowballThrowLocation;
         }
+        anim.SetTrigger("ThrowSnowball");
+
+    }
+
+    public void actuallyThrow()
+    {
+        currentSnowball.gameObject.SetActive(true);
         //move it relative right
         currentSnowball.init(this, snowballThrowLocation.right, SnowBallThrowSpeed);
         //unparent it
