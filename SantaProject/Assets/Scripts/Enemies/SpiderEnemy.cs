@@ -118,6 +118,11 @@ public class SpiderEnemy : Enemy
         stateHasChanged = true;
     }
 
+    public void notifyWallOrEnemy()
+    {
+
+    }
+
     public override bool playerSeen(GameObject playerRef)
     {
         currentPlayerChasing = playerRef;
@@ -168,6 +173,14 @@ public class SpiderEnemy : Enemy
         playerDetectorRef.SetActive(false);
         //disable weakPoint
         WeakPointRef.SetActive(false);
+        StartCoroutine(freezeAfterDeath());
+    }
+
+    private IEnumerator freezeAfterDeath()
+    {
+        yield return new WaitForSeconds(.5f);
+        myBody.velocity = Vector2.zero;
+        myBody.gravityScale = 0f;
     }
 
 }
