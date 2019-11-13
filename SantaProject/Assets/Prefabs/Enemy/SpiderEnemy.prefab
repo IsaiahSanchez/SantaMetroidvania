@@ -171,7 +171,7 @@ MonoBehaviour:
   DamageWeakPoint: {fileID: 0}
   DamageTrigger: {fileID: 0}
   amountToWaitBeforeRoamChecking: 2.5
-  normalMovementSpeed: 1.25
+  normalMovementSpeed: 2.5
   damageBoxRef: {fileID: 4434151660579695164}
   playerDetectorRef: {fileID: 8588251342025551010}
   WeakPointRef: {fileID: 7477021174459725531}
@@ -356,6 +356,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8163801536003986710, guid: b209eb088d861534493edffa12503620,
+        type: 3}
+      propertyPath: DamageAmount
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4010827142904664561, guid: b209eb088d861534493edffa12503620,
         type: 3}
       propertyPath: m_Offset.y
@@ -370,11 +375,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.y
       value: 0.60836035
-      objectReference: {fileID: 0}
-    - target: {fileID: -8163801536003986710, guid: b209eb088d861534493edffa12503620,
-        type: 3}
-      propertyPath: DamageAmount
-      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b209eb088d861534493edffa12503620, type: 3}
@@ -537,6 +537,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688504361539459218, guid: 43f920e124f230b44a62eee6a6247bee,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688504361539459218, guid: 43f920e124f230b44a62eee6a6247bee,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 23.31692
       objectReference: {fileID: 0}
     - target: {fileID: 1688504361539459217, guid: 43f920e124f230b44a62eee6a6247bee,
         type: 3}
