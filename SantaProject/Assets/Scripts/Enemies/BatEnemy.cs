@@ -27,6 +27,10 @@ public class BatEnemy : Enemy
 
     private void Update()
     {
+        if (playerReference == null)
+        {
+            playerReference = GameManager.Instance.mainPlayer.gameObject;
+        }
         if (stateHasChanged == true)
         {
             switch (currentBatState)
@@ -79,19 +83,17 @@ public class BatEnemy : Enemy
         currentMovementRoutine = StartCoroutine(chasePlayer());
     }
 
-    public override bool playerSeen(GameObject playerRef)
+    public override void playerSeen()
     {
         if (currentMovementRoutine != null)
         {
             StopCoroutine(currentMovementRoutine);
         }
-        playerReference = playerRef;
         currentBatState = BatStates.chasing;
         stateHasChanged = true;
-        return true;
     }
 
-    public override bool playerLost()
+    public override void playerLost()
     {
         if (currentMovementRoutine != null)
         {
@@ -99,7 +101,6 @@ public class BatEnemy : Enemy
         }
         currentBatState = BatStates.returning;
         stateHasChanged = true;
-        return true;
     }
 
     public override void damageEnemy()

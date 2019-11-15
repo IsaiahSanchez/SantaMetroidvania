@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class SpiderWallWatcher : MonoBehaviour
 {
-    [SerializeField] private SpiderEnemy mySpiderEnemy;
+    [SerializeField] private NewSpiderBehavior mySpiderEnemy;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.layer == 13 || collision.gameObject.layer == 12)
         {
-            mySpiderEnemy.notifyGroundChange(true);
+            mySpiderEnemy.notifyOfWall(true);
         }
     }
 
@@ -18,7 +18,7 @@ public class SpiderWallWatcher : MonoBehaviour
     {
         if (collision.gameObject.layer == 13 || collision.gameObject.layer == 12)
         {
-            mySpiderEnemy.notifyGroundChange(false);
+            mySpiderEnemy.notifyOfWall(false);
         }
     }
 }

@@ -24,21 +24,15 @@ public class EnemyPlayerDetector : MonoBehaviour
     private IEnumerator alertEnemyOfPlayerSeen(GameObject playerRef)
     {
         yield return new WaitForEndOfFrame();
-        bool temp = myEnemy.playerSeen(playerRef);
-        if (temp == false)
-        {
-            StartCoroutine(alertEnemyOfPlayerSeen(playerRef));
-        }
+        myEnemy.playerSeen();
+
     }
 
     private IEnumerator alertEnemyOfPlayerLost()
     {
         StopCoroutine(currentPlayerSeenCo);
         yield return new WaitForEndOfFrame();
-        bool temp = myEnemy.playerLost();
-        if (temp == false)
-        {
-            StartCoroutine(alertEnemyOfPlayerLost());
-        }
+        myEnemy.playerLost();
+
     }
 }

@@ -4,25 +4,27 @@ using UnityEngine;
 
 public class EdgeWatcher : MonoBehaviour
 {
-    [SerializeField] private SpiderEnemy currentEnemy;
+    [SerializeField] private NewSpiderBehavior currentEnemy;
     private bool isNotTouchingGround = false;
+    private int groundsTouching = 0;
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isNotTouchingGround == true)
+        if (groundsTouching <= 0)
         {
-            isNotTouchingGround = false;
-            currentEnemy.notifyGroundChange(isNotTouchingGround);
+            currentEnemy.notifyOfEdge(false);
         }
+        groundsTouching++;
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (isNotTouchingGround == false)
+        groundsTouching--;
+        if (groundsTouching <= 0)
         {
-            isNotTouchingGround = true;
-            currentEnemy.notifyGroundChange(isNotTouchingGround);
+            currentEnemy.notifyOfEdge(true);
         }
     }
 }

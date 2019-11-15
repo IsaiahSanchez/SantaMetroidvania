@@ -178,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void handleDashInput()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.O) || Input.GetKeyDown(KeyCode.LeftShift))
         {
             if (myPlayer.hasDashPower == true)
             {

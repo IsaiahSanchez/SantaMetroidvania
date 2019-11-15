@@ -23,7 +23,7 @@ TagManager:
   - EnemyPlayerDetector
   - DeadEnemy
   - SpiderEnemyGroundChecker
-  - 
+  - EnemyEdgeDetector
   - 
   - 
   - 

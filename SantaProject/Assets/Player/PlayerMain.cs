@@ -23,13 +23,15 @@ public class PlayerMain : MonoBehaviour
 
     private void Awake()
     {
-
+       
         myMovement = GetComponent<PlayerMovement>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        UIManager.Instance.updatePlayerHealthText(health);
+        UIManager.Instance.showPowerup("WASD or Arrow Keys to move, K or Space to jump");
         if (hasDoubleJumpPower == true)
         {
             hasDoubleJumpPower = false;
@@ -54,7 +56,7 @@ public class PlayerMain : MonoBehaviour
     {
         if (canThrowSnowball == true)
         {
-            if (Input.GetKeyDown(KeyCode.J))
+            if (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.Return))
             {
                 if (hasSnowBallPower == true)
                 {
@@ -66,28 +68,36 @@ public class PlayerMain : MonoBehaviour
 
     public void givePower(int powerIndex)
     {
+        string nameAndDescription = "";
         switch (powerIndex)
         {
             case 0:
                 if (hasDoubleJumpPower == false)
                 {
+                    nameAndDescription = "You have gained the Double Jump power, press Jump a second time while in mid air to jump a second time!";
                     hasDoubleJumpPower = true;
                     myMovement.notifyOfDoubleJumpGet();
+                    UIManager.Instance.showPowerup(nameAndDescription);
                 }
                 break;
             case 1:
                 if (hasDashPower == false)
                 {
+                    nameAndDescription = "You have gained the Dash power, press O to dash the direction you are aiming with WASD!";
                     hasDashPower = true;
+                    UIManager.Instance.showPowerup(nameAndDescription);
                 }
                 break;
             case 2:
                 if(hasSnowBallPower == false)
                 {
+                    nameAndDescription = "You have gained the Snow Ball Teleport power, press J to throw a snowball that will teleport you to where it lands!";
                     hasSnowBallPower = true;
+                    UIManager.Instance.showPowerup(nameAndDescription);
                 }
                 break;
         }
+
     }
     private void throwSnowball()
     {
@@ -150,12 +160,13 @@ public class PlayerMain : MonoBehaviour
     public void TakeDamage(float amount, int direction)
     {
         health -= amount;
-        Debug.Log(health);
+        UIManager.Instance.updatePlayerHealthText(health);
         //knockback  need to create function in playermovement script.
         myMovement.getKnockedBack(direction);
         if (health <= 0)
         {
             //die
+            GameManager.Instance.StartGameOver();
         }
     }
 
