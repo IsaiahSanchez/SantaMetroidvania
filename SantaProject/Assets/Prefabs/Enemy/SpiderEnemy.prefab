@@ -91,8 +91,9 @@ GameObject:
   - component: {fileID: 729608945556449871}
   - component: {fileID: 729608945556449872}
   - component: {fileID: 4351639688367292346}
-  - component: {fileID: 4353309724461305812}
   - component: {fileID: 5232437845681187069}
+  - component: {fileID: 4552162645334248688}
+  - component: {fileID: 2113486646}
   m_Layer: 11
   m_Name: SpiderEnemy
   m_TagString: Untagged
@@ -156,26 +157,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &4353309724461305812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 729608945556449870}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7894831c6543c2647b188a46c9bd5a26, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DamageWeakPoint: {fileID: 0}
-  DamageTrigger: {fileID: 0}
-  amountToWaitBeforeRoamChecking: 2.5
-  normalMovementSpeed: 1.25
-  damageBoxRef: {fileID: 4434151660579695164}
-  playerDetectorRef: {fileID: 8588251342025551010}
-  WeakPointRef: {fileID: 7477021174459725531}
-  directionMoving: 1
 --- !u!114 &5232437845681187069
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,6 +171,119 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   aimTransform: {fileID: 935469180474238680}
   graphicTransform: {fileID: 729608944914923341}
+--- !u!114 &4552162645334248688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729608945556449870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d8b876d3c215f842bdaf3d56b7869ba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DamageWeakPoint: {fileID: 0}
+  DamageTrigger: {fileID: 0}
+  amountToWaitBeforeRoamChecking: 3
+  MovementSpeed: 2
+  damageBoxRef: {fileID: 4434151660579695164}
+  playerDetectorRef: {fileID: 8588251342025551010}
+  WeakPointRef: {fileID: 7477021174459725531}
+  defaultSprite: {fileID: 21300000, guid: 81a3b5e0eb729e24ea9a1f09c63d7b2e, type: 3}
+  arachnaephobiaSprite: {fileID: 21300000, guid: c0a9c156179a4404abee66d1056fac03,
+    type: 3}
+  mySprite: {fileID: 729608944914923342}
+--- !u!95 &2113486646
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 729608945556449870}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 0f9d8deabc20a4c4484f2ca54a2150e5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!1 &8447191457189044638
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8930736681075114871}
+  - component: {fileID: 2691959929465054404}
+  - component: {fileID: 6459664313338923286}
+  m_Layer: 17
+  m_Name: WallWatcher
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8930736681075114871
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8447191457189044638}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.081, y: 0.711, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 935469180474238680}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &2691959929465054404
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8447191457189044638}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.21772826, y: 0.1301139}
+  m_EdgeRadius: 0
+--- !u!114 &6459664313338923286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8447191457189044638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5f89792afbf0324683204a719ce29f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mySpiderEnemy: {fileID: 4552162645334248688}
 --- !u!114 &6148091804339452183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -202,7 +296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 869e07bb306d28e469bb479d7a1c1bd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentEnemy: {fileID: 4353309724461305812}
+  currentEnemy: {fileID: 4552162645334248688}
 --- !u!1001 &729608945426761689
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -274,7 +368,12 @@ PrefabInstance:
         type: 3}
       propertyPath: myEnemy
       value: 
-      objectReference: {fileID: 4353309724461305812}
+      objectReference: {fileID: 4552162645334248688}
+    - target: {fileID: 7918348890211021084, guid: f99c1b77d153cd2418bba947e419f35b,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 1.77
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f99c1b77d153cd2418bba947e419f35b, type: 3}
 --- !u!1 &7477021174459725531 stripped
@@ -356,6 +455,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8163801536003986710, guid: b209eb088d861534493edffa12503620,
+        type: 3}
+      propertyPath: DamageAmount
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 4010827142904664561, guid: b209eb088d861534493edffa12503620,
         type: 3}
       propertyPath: m_Offset.y
@@ -370,11 +474,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.y
       value: 0.60836035
-      objectReference: {fileID: 0}
-    - target: {fileID: -8163801536003986710, guid: b209eb088d861534493edffa12503620,
-        type: 3}
-      propertyPath: DamageAmount
-      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b209eb088d861534493edffa12503620, type: 3}
@@ -402,6 +501,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: EdgeWatcher
       objectReference: {fileID: 0}
+    - target: {fileID: 7023704788197972816, guid: fc2149921932ffa40a2dd59c922e507d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 18
+      objectReference: {fileID: 0}
     - target: {fileID: 1197993604230009510, guid: fc2149921932ffa40a2dd59c922e507d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -410,7 +514,7 @@ PrefabInstance:
     - target: {fileID: 1197993604230009510, guid: fc2149921932ffa40a2dd59c922e507d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.603
+      value: -0.642
       objectReference: {fileID: 0}
     - target: {fileID: 1197993604230009510, guid: fc2149921932ffa40a2dd59c922e507d,
         type: 3}
@@ -538,11 +642,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1688504361539459218, guid: 43f920e124f230b44a62eee6a6247bee,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 23.31692
+      objectReference: {fileID: 0}
     - target: {fileID: 1688504361539459217, guid: 43f920e124f230b44a62eee6a6247bee,
         type: 3}
       propertyPath: myEnemy
       value: 
-      objectReference: {fileID: 4353309724461305812}
+      objectReference: {fileID: 4552162645334248688}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43f920e124f230b44a62eee6a6247bee, type: 3}
 --- !u!1 &8588251342025551010 stripped

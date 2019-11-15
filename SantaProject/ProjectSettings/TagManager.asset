@@ -22,8 +22,8 @@ TagManager:
   - PlayerStructure
   - EnemyPlayerDetector
   - DeadEnemy
-  - 
-  - 
+  - SpiderEnemyGroundChecker
+  - EnemyEdgeDetector
   - 
   - 
   - 

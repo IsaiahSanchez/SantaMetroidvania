@@ -73,8 +73,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageWeakPoint: {fileID: 0}
   DamageTrigger: {fileID: 0}
-  movementSpeed: 2
-  timeChasing: 1
+  movementSpeed: 3.5
+  timeChasing: 1.5
   timeWaiting: 0.75
   bufferCircle: 0.25
   damageBoxRef: {fileID: 6166731038338896868}
@@ -267,21 +267,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1688504361539459218, guid: 43f920e124f230b44a62eee6a6247bee,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: -2.990775
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688504361539459218, guid: 43f920e124f230b44a62eee6a6247bee,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 16.486341
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688504361539459218, guid: 43f920e124f230b44a62eee6a6247bee,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 14.402805
+      objectReference: {fileID: 0}
+    - target: {fileID: 1688504361539459218, guid: 43f920e124f230b44a62eee6a6247bee,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1688504361539459217, guid: 43f920e124f230b44a62eee6a6247bee,
         type: 3}
       propertyPath: myEnemy
       value: 
       objectReference: {fileID: 1491841703}
-    - target: {fileID: 1688504361539459218, guid: 43f920e124f230b44a62eee6a6247bee,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 9.214324
-      objectReference: {fileID: 0}
-    - target: {fileID: 1688504361539459218, guid: 43f920e124f230b44a62eee6a6247bee,
-        type: 3}
-      propertyPath: m_Size.y
-      value: 7.764427
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43f920e124f230b44a62eee6a6247bee, type: 3}
 --- !u!1 &5114055224415869801 stripped
@@ -371,12 +381,12 @@ PrefabInstance:
     - target: {fileID: 7918348890211021084, guid: f99c1b77d153cd2418bba947e419f35b,
         type: 3}
       propertyPath: m_Offset.x
-      value: -0.026702642
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7918348890211021084, guid: f99c1b77d153cd2418bba947e419f35b,
         type: 3}
       propertyPath: m_Size.x
-      value: 0.44935203
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f99c1b77d153cd2418bba947e419f35b, type: 3}
@@ -459,6 +469,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8163801536003986710, guid: b209eb088d861534493edffa12503620,
+        type: 3}
+      propertyPath: DamageAmount
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4010827142904664561, guid: b209eb088d861534493edffa12503620,
         type: 3}
       propertyPath: m_Offset.y
@@ -473,11 +488,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.y
       value: 0.5282529
-      objectReference: {fileID: 0}
-    - target: {fileID: -8163801536003986710, guid: b209eb088d861534493edffa12503620,
-        type: 3}
-      propertyPath: DamageAmount
-      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b209eb088d861534493edffa12503620, type: 3}

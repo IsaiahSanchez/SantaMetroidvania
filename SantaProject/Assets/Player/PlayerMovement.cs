@@ -178,7 +178,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void handleDashInput()
     {
-        if (Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.O) || Input.GetKeyDown(KeyCode.LeftShift))
         {
             if (myPlayer.hasDashPower == true)
             {
@@ -215,7 +215,7 @@ public class PlayerMovement : MonoBehaviour
     {
         yield return new WaitForSeconds(dashTime);
         isDashing = false;
-        myBody.velocity = new Vector2(myBody.velocity.x, myBody.velocity.y * .05f);
+        myBody.velocity = new Vector2(myBody.velocity.x, myBody.velocity.y * .25f);
         stopJumping();
         if (myFeet.isTouchingGround)
         {

@@ -30,14 +30,14 @@ public class Enemy : MonoBehaviour
         Debug.Log("Ded");
     }
 
-    public virtual bool playerSeen(GameObject playerRef)
+    public virtual void playerSeen()
     {
-        return true;
+    
     }
 
-    public virtual bool playerLost()
+    public virtual void playerLost()
     {
-        return true;
+
     }
 
 }

@@ -16,7 +16,7 @@ public class SpiderEnemy : Enemy
     private bool stateHasChanged = true;
     private Coroutine currentMovementRoutine;
     public int directionMoving = 1;
-    private bool hasReachedEdge = false;
+    private bool ShouldTurn = false;
     private EnemyFacingHandler facingHandler;
     private GameObject currentPlayerChasing;
 
@@ -35,10 +35,10 @@ public class SpiderEnemy : Enemy
             {
                 case SpiderState.roaming:
                     movementSpeed = normalMovementSpeed;
-                    if (hasReachedEdge == true)
+                    if (ShouldTurn == true)
                     {
                         StopCoroutine(currentMovementRoutine);
-                        hasReachedEdge = false;
+                        ShouldTurn = false;
                         currentMovementRoutine = StartCoroutine(roam(directionMoving * -1));
                     }
                     else
@@ -47,16 +47,15 @@ public class SpiderEnemy : Enemy
                     }
                     break;
                 case SpiderState.chasing:
-                    if (hasReachedEdge == true)
+                    
+                    if (ShouldTurn == true)
                     {
-                        movementSpeed = 0f;
+                        stateHasChanged = true;
                     }
                     else
                     {
-                        movementSpeed = normalMovementSpeed;
-                    }
                         currentMovementRoutine = StartCoroutine(chasePlayer());
-                    
+                    }
                     break;
                 case SpiderState.dead:
                     myBody.velocity = Vector2.zero;
@@ -108,19 +107,18 @@ public class SpiderEnemy : Enemy
         stateHasChanged = true; //make update loop try and roam again. also will happen if gets interrupted by the floor watcher
     }
 
-    public void notifyGroundChange(bool isNotTouchingGround)
+    public void notifyGroundChange(bool shouldFlip)
     {
-        if (currentMovementRoutine != null)
+        if (shouldFlip == true)
         {
-            StopCoroutine(currentMovementRoutine);
+            ShouldTurn = shouldFlip;
+            stateHasChanged = true;
         }
-        hasReachedEdge = isNotTouchingGround;
-        stateHasChanged = true;
     }
 
-    public override bool playerSeen(GameObject playerRef)
+    public override void playerSeen()
     {
-        currentPlayerChasing = playerRef;
+        //currentPlayerChasing = playerRef;
         currentState = SpiderState.chasing;
 
         if (currentMovementRoutine != null)
@@ -129,10 +127,9 @@ public class SpiderEnemy : Enemy
         }
 
         stateHasChanged = true;
-        return true;
     }
 
-    public override bool playerLost()
+    public override void playerLost()
     {
         if (currentMovementRoutine != null)
         {
@@ -141,7 +138,6 @@ public class SpiderEnemy : Enemy
 
         currentState = SpiderState.roaming;
         stateHasChanged = true;
-        return true;
     }
 
     public override void damageEnemy()
@@ -157,6 +153,7 @@ public class SpiderEnemy : Enemy
     {
         //stop enemy
         StopCoroutine(currentMovementRoutine);
+        stateHasChanged = false;
         currentState = SpiderState.dead;
         stateHasChanged = true;
         myBody.gravityScale = 2.5f;
@@ -168,6 +165,14 @@ public class SpiderEnemy : Enemy
         playerDetectorRef.SetActive(false);
         //disable weakPoint
         WeakPointRef.SetActive(false);
+        StartCoroutine(freezeAfterDeath());
+    }
+
+    private IEnumerator freezeAfterDeath()
+    {
+        yield return new WaitForSeconds(.5f);
+        myBody.velocity = Vector2.zero;
+        myBody.gravityScale = 0f;
     }
 
 }
