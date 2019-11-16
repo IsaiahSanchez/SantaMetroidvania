@@ -127,5 +127,6 @@ public class BatEnemy : Enemy
         playerDetectorRef.SetActive(false);
         //disable weakPoint
         WeakPointRef.SetActive(false);
+        base.die();
     }
 }

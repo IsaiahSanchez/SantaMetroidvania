@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1484677546026266121}
   - component: {fileID: 1484677546026266122}
   - component: {fileID: 1484677546026266120}
-  m_Layer: 12
+  m_Layer: 19
   m_Name: DefaultPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5448489537569664995}
   - component: {fileID: 972356840931336721}
-  m_Layer: 12
+  m_Layer: 19
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

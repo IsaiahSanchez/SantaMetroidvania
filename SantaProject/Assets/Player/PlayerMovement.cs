@@ -112,6 +112,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (canJump == true)
         {
+            AudioManager.instance.PlaySound("Jump");
             playerAnimator.SetBool("IsJumping", false);
             myBody.velocity = new Vector2(myBody.velocity.x, 0);
             myBody.AddForce(new Vector2(0, jumpSpeed * 4f));
@@ -157,7 +158,7 @@ public class PlayerMovement : MonoBehaviour
     }
     public void hasLanded()
     {
-
+        AudioManager.instance.PlaySound("Land");
         canJump = true;
         numberOfJumps = MaxNumberOfJumps;
         canDash = true;
@@ -191,6 +192,7 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Dash()
     {
+        AudioManager.instance.PlaySound("Dash");
         playerAnimator.SetBool("IsJumping", true);
         canDash = false;
         myBody.gravityScale = 0f;

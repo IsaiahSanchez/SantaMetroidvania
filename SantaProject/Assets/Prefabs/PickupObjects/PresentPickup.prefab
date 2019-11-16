@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1201881160659500353}
   - component: {fileID: 1201881160659500352}
-  m_Layer: 12
+  m_Layer: 19
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 1201881161139928692}
   - component: {fileID: 1201881161139928698}
   - component: {fileID: 1201881161139928699}
-  m_Layer: 12
+  m_Layer: 19
   m_Name: PresentPickup
   m_TagString: Untagged
   m_Icon: {fileID: 0}

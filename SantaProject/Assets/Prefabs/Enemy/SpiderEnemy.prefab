@@ -134,7 +134,7 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: -0.1}
-  m_Size: {x: 1.88, y: 0.73}
+  m_Size: {x: 1.88, y: 0.64}
   m_Direction: 1
 --- !u!50 &4351639688367292346
 Rigidbody2D:
@@ -317,7 +317,7 @@ PrefabInstance:
     - target: {fileID: 7918348890211021059, guid: f99c1b77d153cd2418bba947e419f35b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.28
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 7918348890211021059, guid: f99c1b77d153cd2418bba947e419f35b,
         type: 3}
@@ -455,15 +455,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8163801536003986710, guid: b209eb088d861534493edffa12503620,
-        type: 3}
-      propertyPath: DamageAmount
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 4010827142904664561, guid: b209eb088d861534493edffa12503620,
         type: 3}
       propertyPath: m_Offset.y
-      value: -0.15131518
+      value: -0.18
       objectReference: {fileID: 0}
     - target: {fileID: 4010827142904664561, guid: b209eb088d861534493edffa12503620,
         type: 3}
@@ -473,7 +468,12 @@ PrefabInstance:
     - target: {fileID: 4010827142904664561, guid: b209eb088d861534493edffa12503620,
         type: 3}
       propertyPath: m_Size.y
-      value: 0.60836035
+      value: 0.52
+      objectReference: {fileID: 0}
+    - target: {fileID: -8163801536003986710, guid: b209eb088d861534493edffa12503620,
+        type: 3}
+      propertyPath: DamageAmount
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b209eb088d861534493edffa12503620, type: 3}
@@ -642,16 +642,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1688504361539459218, guid: 43f920e124f230b44a62eee6a6247bee,
-        type: 3}
-      propertyPath: m_Size.x
-      value: 23.31692
-      objectReference: {fileID: 0}
     - target: {fileID: 1688504361539459217, guid: 43f920e124f230b44a62eee6a6247bee,
         type: 3}
       propertyPath: myEnemy
       value: 
       objectReference: {fileID: 4552162645334248688}
+    - target: {fileID: 1688504361539459218, guid: 43f920e124f230b44a62eee6a6247bee,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 23.31692
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43f920e124f230b44a62eee6a6247bee, type: 3}
 --- !u!1 &8588251342025551010 stripped

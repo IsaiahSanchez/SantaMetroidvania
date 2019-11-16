@@ -10,14 +10,19 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI playerHealthText;
     [SerializeField] private TextMeshProUGUI PowerUpPopup;
+    [SerializeField] private TextMeshProUGUI PresentText;
 
     // Start is called before the first frame update
     void Awake()
     {
-        if(Instance != null)
-        Destroy(Instance);
+        if (Instance != null)
+        {
+            Destroy(Instance);
+        }
 
         Instance = this;
+
+        updatePresentText(0);
         //if (Instance == null)
         //{
         //    Instance = this;
@@ -26,6 +31,11 @@ public class UIManager : MonoBehaviour
         //{
         //    Destroy(this);
         //}
+    }
+
+    public void updatePresentText(int presents)
+    {
+        PresentText.text = presents + " / 35";
     }
 
     public void updatePlayerHealthText(float currentHealth)

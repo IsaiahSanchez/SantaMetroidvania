@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7800411391703918535}
   - component: {fileID: 7800411391703918534}
   - component: {fileID: 7800411391703918533}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: PowerUp
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,7 +82,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7800411393406021252}
   - component: {fileID: 7800411393406021253}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}

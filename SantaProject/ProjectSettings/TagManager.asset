@@ -24,7 +24,7 @@ TagManager:
   - DeadEnemy
   - SpiderEnemyGroundChecker
   - EnemyEdgeDetector
-  - 
+  - PickupableObject
   - 
   - 
   - 
