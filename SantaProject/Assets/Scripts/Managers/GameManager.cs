@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Cinemachine;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-    public Camera CurrentMainCamera;
+    public CinemachineVirtualCamera MainCamera;
     public PlayerMain mainPlayer;
     public bool arachnaephobiaModeEnabled = false;
 
