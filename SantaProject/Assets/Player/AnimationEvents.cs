@@ -8,4 +8,9 @@ public class AnimationEvents : MonoBehaviour
     {
         GetComponentInParent<PlayerMain>().actuallyThrow();
     }
+
+    public void playerFootStepSound()
+    {
+        AudioManager.instance.PlaySound("Footstep");
+    }
 }

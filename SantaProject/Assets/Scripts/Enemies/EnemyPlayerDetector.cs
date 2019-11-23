@@ -30,7 +30,10 @@ public class EnemyPlayerDetector : MonoBehaviour
 
     private IEnumerator alertEnemyOfPlayerLost()
     {
-        StopCoroutine(currentPlayerSeenCo);
+        if (currentPlayerSeenCo != null)
+        {
+            StopCoroutine(currentPlayerSeenCo);
+        }
         yield return new WaitForEndOfFrame();
         myEnemy.playerLost();
 

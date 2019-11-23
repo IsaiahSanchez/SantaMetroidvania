@@ -187,6 +187,7 @@ public class NewSpiderBehavior : Enemy
 
         //play animation of dying
         myAnimator.SetTrigger("TriggerDeath");
+        base.die();
     }
 
     public override void playerSeen()

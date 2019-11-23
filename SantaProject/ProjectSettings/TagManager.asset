@@ -24,7 +24,7 @@ TagManager:
   - DeadEnemy
   - SpiderEnemyGroundChecker
   - EnemyEdgeDetector
-  - 
+  - PickupableObject
   - 
   - 
   - 
@@ -38,6 +38,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: GroundView
+    uniqueID: 2536396955
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

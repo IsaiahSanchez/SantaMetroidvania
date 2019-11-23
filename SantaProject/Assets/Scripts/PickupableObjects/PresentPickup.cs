@@ -7,9 +7,7 @@ public class PresentPickup : PickupObject
 
     protected override void PickUpItem(Collider2D targetCollider)
     {
-        targetCollider.GetComponentInParent<PlayerMain>().numberOfPresentsCollected++;
-        Debug.Log(targetCollider.GetComponentInParent<PlayerMain>().numberOfPresentsCollected);
-
+        targetCollider.GetComponentInParent<PlayerMain>().collectPresent();
 
         base.PickUpItem(targetCollider);
     }

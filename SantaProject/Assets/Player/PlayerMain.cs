@@ -69,6 +69,7 @@ public class PlayerMain : MonoBehaviour
     public void givePower(int powerIndex)
     {
         string nameAndDescription = "";
+        AudioManager.instance.PlaySound("Powerup");
         switch (powerIndex)
         {
             case 0:
@@ -137,6 +138,8 @@ public class PlayerMain : MonoBehaviour
     public void snowBallHasHit(Vector2 HitLocation)
     {
         myMovement.TeleportToSnowBallHit(HitLocation);
+        AudioManager.instance.PlaySound("SnowballLand");
+        AudioManager.instance.PlaySound("Dash");
         if (mainWaitCoroutine != null)
         {
             StopCoroutine(mainWaitCoroutine);
@@ -163,11 +166,19 @@ public class PlayerMain : MonoBehaviour
         UIManager.Instance.updatePlayerHealthText(health);
         //knockback  need to create function in playermovement script.
         myMovement.getKnockedBack(direction);
+        AudioManager.instance.PlaySound("PlayerHurt");
         if (health <= 0)
         {
             //die
             GameManager.Instance.StartGameOver();
         }
+    }
+
+    public void collectPresent()
+    {
+        numberOfPresentsCollected++;
+        UIManager.Instance.updatePresentText(numberOfPresentsCollected);
+        AudioManager.instance.PlaySound("PresentCollect");
     }
 
 }
