@@ -228,7 +228,7 @@ public class PlayerMovement : MonoBehaviour
     public void TeleportToSnowBallHit(Vector2 SnowBallHitLocation)
     {
         myBody.velocity = Vector2.zero;
-        transform.position = SnowBallHitLocation + new Vector2(0,1f);
+        transform.position = SnowBallHitLocation + new Vector2(0,.75f);
         playerAnimator.SetBool("IsJumping", false);
     }
 
