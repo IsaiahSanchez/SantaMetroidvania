@@ -6,6 +6,7 @@ public class PlayerMain : MonoBehaviour
 {
     [SerializeField] private Transform snowballThrowLocation;
     [SerializeField] private GameObject SnowBallPrefab;
+    [SerializeField] private RockKicker myKicker;
     [SerializeField] private float SnowBallThrowSpeed;
     [SerializeField] private float timeAfterTeleportToEnableThrowing;
     [SerializeField] private Animator anim;
@@ -14,10 +15,12 @@ public class PlayerMain : MonoBehaviour
     private Coroutine mainWaitCoroutine;
     private SnowBall currentSnowball;
     private float health = 100f;
+
     public bool hasDoubleJumpPower = false;
     public bool hasDashPower = false;
     public bool hasSnowBallPower = false;
     public int numberOfPresentsCollected = 0;
+    public bool canTakeDamage = true;
 
     private PlayerMovement myMovement;
 
@@ -162,11 +165,14 @@ public class PlayerMain : MonoBehaviour
 
     public void TakeDamage(float amount, int direction)
     {
-        health -= amount;
-        UIManager.Instance.updatePlayerHealthText(health);
-        //knockback  need to create function in playermovement script.
-        myMovement.getKnockedBack(direction);
-        AudioManager.instance.PlaySound("PlayerHurt");
+        if (canTakeDamage == true)
+        {
+            health -= amount;
+            UIManager.Instance.updatePlayerHealthText(health);
+            //knockback  need to create function in playermovement script.
+            myMovement.getKnockedBack(direction);
+            AudioManager.instance.PlaySound("PlayerHurt");
+        }
         if (health <= 0)
         {
             //die
@@ -181,4 +187,8 @@ public class PlayerMain : MonoBehaviour
         AudioManager.instance.PlaySound("PresentCollect");
     }
 
+    public void KickRock()
+    {
+        myKicker.TryToKickRock();
+    }
 }

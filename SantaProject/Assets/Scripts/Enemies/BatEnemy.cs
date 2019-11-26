@@ -22,6 +22,10 @@ public class BatEnemy : Enemy
 
     private void Start()
     {
+
+    }
+    private void OnEnable()
+    {
         startingLocation = transform.position;
     }
 
@@ -71,7 +75,7 @@ public class BatEnemy : Enemy
 
     private IEnumerator chasePlayer()
     {
-        myBody.velocity = (playerReference.transform.position - transform.position).normalized * movementSpeed;
+        myBody.velocity = (new Vector2(playerReference.transform.position.x, playerReference.transform.position.y) - new Vector2(transform.position.x,transform.position.y)).normalized * movementSpeed;
         yield return new WaitForSeconds(timeChasing);
         currentMovementRoutine = StartCoroutine(waitWhileChasing());
     }

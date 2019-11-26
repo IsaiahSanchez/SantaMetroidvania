@@ -86,14 +86,14 @@ public class PlayerMovement : MonoBehaviour
         myBody.velocity = Vector2.zero;
         myBody.AddForce(new Vector2(1 * direction,.75f).normalized * knockBackAmount);
         //disable hit box temporarily
-        myHitBox.SetActive(false);
+        myPlayer.canTakeDamage = false;
     }
     private IEnumerator lossInputTimer()
     {
         yield return new WaitForSeconds(knockBackDuration);
         //regain control and gain hitbox again
         isBeingKnocked = false;
-        myHitBox.SetActive(true);
+        myPlayer.canTakeDamage = true;
     }
 
     public void fallOffLedge()

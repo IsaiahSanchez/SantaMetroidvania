@@ -11,6 +11,7 @@ public class AnimationEvents : MonoBehaviour
 
     public void playerFootStepSound()
     {
+        GetComponentInParent<PlayerMain>().KickRock();
         AudioManager.instance.PlaySound("Footstep");
     }
 }
