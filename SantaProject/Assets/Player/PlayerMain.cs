@@ -7,6 +7,7 @@ public class PlayerMain : MonoBehaviour
     [SerializeField] private Transform snowballThrowLocation;
     [SerializeField] private GameObject SnowBallPrefab;
     [SerializeField] private RockKicker myKicker;
+    [SerializeField] private ParticleSystem myLandingDust;
     [SerializeField] private float SnowBallThrowSpeed;
     [SerializeField] private float timeAfterTeleportToEnableThrowing;
     [SerializeField] private Animator anim;
@@ -190,5 +191,10 @@ public class PlayerMain : MonoBehaviour
     public void KickRock()
     {
         myKicker.TryToKickRock();
+    }
+
+    public void spawnLandingDust()
+    {
+        myLandingDust.Play();
     }
 }

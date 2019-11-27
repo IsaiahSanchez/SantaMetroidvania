@@ -159,17 +159,24 @@ public class PlayerMovement : MonoBehaviour
     public void hasLanded()
     {
         AudioManager.instance.PlaySound("Land");
-        canJump = true;
-        numberOfJumps = MaxNumberOfJumps;
-        canDash = true;
-
+        resetPowers();
         if (currentWaitingForFloor != null)
         {
             StopCoroutine(currentWaitingForFloor);
         }
 
         playerAnimator.SetBool("IsJumping", false);
+
     }
+
+    public void resetPowers()
+    {
+        canJump = true;
+        numberOfJumps = MaxNumberOfJumps;
+        canDash = true;
+        myPlayer.spawnLandingDust();
+    }
+    
 
     public void notifyOfDoubleJumpGet()
     {

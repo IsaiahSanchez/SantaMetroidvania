@@ -16,7 +16,7 @@ public class RockKicker : MonoBehaviour
         float rand = Random.Range(0, 1f);
         if (rand <= ChanceToSpawn)
         {
-            int numberOfRocks = Random.Range(1,5);
+            int numberOfRocks = Random.Range(1,3);
 
             while (numberOfRocks > 0)
             {
