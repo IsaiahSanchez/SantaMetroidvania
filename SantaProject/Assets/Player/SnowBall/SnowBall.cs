@@ -32,6 +32,7 @@ public class SnowBall : MonoBehaviour
     public void disableSnowball()
     {
         transform.parent = playerRef.transform;
+        transform.position = new Vector2(0,-1f);
         gameObject.SetActive(false);
     }
 }

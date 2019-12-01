@@ -22,4 +22,9 @@ public class AnimationEvents : MonoBehaviour
     {
         myfeetDust.Play();
     }
+
+    public void destroySelf()
+    {
+        Destroy(gameObject);
+    }
 }

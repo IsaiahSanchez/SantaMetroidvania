@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject myHitBox;
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private FeetTrigger myFeet;
+    [SerializeField] private EchoEffect myDashEcho;
 
     private Rigidbody2D myBody;
     private PlayerMain myPlayer;
@@ -119,6 +120,7 @@ public class PlayerMovement : MonoBehaviour
             myBody.gravityScale = jumpUpGravity;
             numberOfJumps--;
             StartCoroutine(countTilDoneJumping());
+            myPlayer.spawnLandingDust();
 
             if (numberOfJumps <= 0)
             {
@@ -201,6 +203,7 @@ public class PlayerMovement : MonoBehaviour
     {
         AudioManager.instance.PlaySound("Dash");
         playerAnimator.SetBool("IsJumping", true);
+        myDashEcho.shouldEcho = true;
         canDash = false;
         myBody.gravityScale = 0f;
         isDashing = true;
@@ -230,6 +233,7 @@ public class PlayerMovement : MonoBehaviour
         {
             hasLanded();
         }
+        myDashEcho.shouldEcho = false;
     }
 
     public void TeleportToSnowBallHit(Vector2 SnowBallHitLocation)
