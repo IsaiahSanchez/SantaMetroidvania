@@ -73,7 +73,6 @@ public class PlayerMain : MonoBehaviour
     public void givePower(int powerIndex)
     {
         string nameAndDescription = "";
-        AudioManager.instance.PlaySound("Powerup");
         switch (powerIndex)
         {
             case 0:

@@ -10,6 +10,7 @@ public class PowerUpPickup : PickupObject
 
     protected override void PickUpItem(Collider2D targetCollider)
     {
+        AudioManager.instance.PlaySound("Powerup");
         targetCollider.GetComponentInParent<PlayerMain>().givePower((int)chosenPowerUp);
         base.PickUpItem(targetCollider);
     }

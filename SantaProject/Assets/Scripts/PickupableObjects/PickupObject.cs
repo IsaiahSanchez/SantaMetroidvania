@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class PickupObject : MonoBehaviour
 {
+    public int ObjID;
+    public bool hasBeenCollected = false;
+
+    private void Start()
+    {
+        if (hasBeenCollected == true)
+        {
+            gameObject.SetActive(false);
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D target)
     {
         PickUpItem(target);
@@ -11,7 +22,8 @@ public class PickupObject : MonoBehaviour
 
     protected virtual void PickUpItem(Collider2D targetCollider)
     {
-        Destroy(gameObject);
+        hasBeenCollected = true;
+        gameObject.SetActive(false);
     }
 
 }
