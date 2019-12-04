@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameDataManager : MonoBehaviour
 {
@@ -16,27 +17,28 @@ public class GameDataManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(this);
         }
         else
         {
             Destroy(this);
         }
 
-        size = pickupableObjects.Length;
-
         //if playing the game
-        for (int index = 0; index < size; index++)
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            pickupableObjects[index].ObjID = index;
-        }
+            size = pickupableObjects.Length;
 
+            for (int index = 0; index < size; index++)
+            {
+                pickupableObjects[index].ObjID = index;
+            }
 
-        //if has a save file load it. if not give IDs to all of the game objects in the scene
-        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
-        {
-            Debug.Log("File found at : " + Application.persistentDataPath.ToString() + "/gamesave.save" + " Now Loading");
-            LoadGame();
+            //if has a save file load it. if not give IDs to all of the game objects in the scene
+            if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+            {
+                Debug.Log("File found at : " + Application.persistentDataPath.ToString() + "/gamesave.save" + " Now Loading");
+                LoadGame();
+            }
         }
     }
 
@@ -44,7 +46,7 @@ public class GameDataManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.B))
         {
-            saveGame();
+            saveGame(Vector2.zero);
         }
 
         if (Input.GetKeyDown(KeyCode.T))
@@ -66,6 +68,7 @@ public class GameDataManager : MonoBehaviour
         file.Close();
 
         size = saveData.size;
+
         for (int index = 0; index < size; index++)
         {
             pickupableObjects[index].hasBeenCollected = saveData.isCollected[index];
@@ -74,12 +77,47 @@ public class GameDataManager : MonoBehaviour
                 pickupableObjects[index].gameObject.SetActive(false);
             }
         }
+
+        StartCoroutine(playerChanges(saveData));
     }
 
-    public void saveGame()
+    private IEnumerator playerChanges(GameData save)
+    {
+        yield return new WaitForEndOfFrame();
+        givePlayerPowers(save);
+        changePlayerSpawnLocation(save);
+        GameManager.Instance.mainPlayer.setPresents(save.presentsCollected);
+        GameManager.Instance.mainPlayer.setPlayerHealthMax(save.playerMaxHealth, true);
+    }
+
+    private void givePlayerPowers(GameData save)
+    {
+        if (save.playerDoubleJump == true)
+        {
+            GameManager.Instance.mainPlayer.givePower(0, false);
+        }
+
+        if (save.playerDash == true)
+        {
+            GameManager.Instance.mainPlayer.givePower(1, false);
+        }
+
+        if (save.playerSnowball == true)
+        {
+            GameManager.Instance.mainPlayer.givePower(2, false);
+        }
+    }
+
+    private void changePlayerSpawnLocation(GameData save)
+    {
+        GameManager.Instance.mainPlayer.transform.position = new Vector2(save.xSpawn, save.ySpawn);
+    }
+
+    public void saveGame(Vector2 PlayerSpawnLocation)
     {
         GameData saveData = new GameData();
         saveData.size = size;
+        //saving all the pickupable objects
         for (int index = 0; index < size; index++)
         {
             PickupObject currentObject = pickupableObjects[index];
@@ -87,6 +125,16 @@ public class GameDataManager : MonoBehaviour
             saveData.isCollected[currentObject.ObjID] = currentObject.hasBeenCollected;
             Debug.Log("One Saved");
         }
+
+        //saving all of the player information
+        saveData.playerDash = GameManager.Instance.mainPlayer.hasDashPower;
+        saveData.playerDoubleJump = GameManager.Instance.mainPlayer.hasDashPower;
+        saveData.playerSnowball = GameManager.Instance.mainPlayer.hasDashPower;
+        saveData.playerMaxHealth = GameManager.Instance.mainPlayer.maxPlayerHealth;
+        saveData.presentsCollected = GameManager.Instance.mainPlayer.numberOfPresentsCollected;
+        saveData.xSpawn = PlayerSpawnLocation.x;
+        saveData.ySpawn = PlayerSpawnLocation.y;
+
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");

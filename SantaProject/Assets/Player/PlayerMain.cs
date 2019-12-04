@@ -16,6 +16,7 @@ public class PlayerMain : MonoBehaviour
     private Coroutine mainWaitCoroutine;
     private SnowBall currentSnowball;
     private float health = 100f;
+    public float maxPlayerHealth = 40f;
 
     public bool hasDoubleJumpPower = false;
     public bool hasDashPower = false;
@@ -39,19 +40,19 @@ public class PlayerMain : MonoBehaviour
         if (hasDoubleJumpPower == true)
         {
             hasDoubleJumpPower = false;
-            givePower(0);
+            givePower(0, false);
         }
 
         if (hasDashPower == true)
         {
             hasDashPower = false;
-            givePower(1);
+            givePower(1, false);
         }
 
         if (hasSnowBallPower == true)
         {
             hasSnowBallPower = false;
-            givePower(2);
+            givePower(2, false);
         }
     }
 
@@ -70,7 +71,18 @@ public class PlayerMain : MonoBehaviour
         }
     }
 
-    public void givePower(int powerIndex)
+    public void setPlayerHealthMax(float maxHealth, bool shouldUpdateMaxHealth)
+    {
+        if (shouldUpdateMaxHealth == true)
+        {
+            maxPlayerHealth = maxHealth;
+        }
+
+        health = maxPlayerHealth;
+        UIManager.Instance.updatePlayerHealthText(health);
+    }
+
+    public void givePower(int powerIndex, bool shouldShowText)
     {
         string nameAndDescription = "";
         switch (powerIndex)
@@ -81,7 +93,6 @@ public class PlayerMain : MonoBehaviour
                     nameAndDescription = "You have gained the Double Jump power, press Jump a second time while in mid air to jump a second time!";
                     hasDoubleJumpPower = true;
                     myMovement.notifyOfDoubleJumpGet();
-                    UIManager.Instance.showPowerup(nameAndDescription);
                 }
                 break;
             case 1:
@@ -89,7 +100,6 @@ public class PlayerMain : MonoBehaviour
                 {
                     nameAndDescription = "You have gained the Dash power, press O to dash the direction you are aiming with WASD!";
                     hasDashPower = true;
-                    UIManager.Instance.showPowerup(nameAndDescription);
                 }
                 break;
             case 2:
@@ -97,9 +107,12 @@ public class PlayerMain : MonoBehaviour
                 {
                     nameAndDescription = "You have gained the Snow Ball Teleport power, press J to throw a snowball that will teleport you to where it lands!";
                     hasSnowBallPower = true;
-                    UIManager.Instance.showPowerup(nameAndDescription);
                 }
                 break;
+        }
+        if (shouldShowText == true)
+        {
+            UIManager.Instance.showPowerup(nameAndDescription);
         }
 
     }
@@ -178,6 +191,12 @@ public class PlayerMain : MonoBehaviour
             //die
             GameManager.Instance.StartGameOver();
         }
+    }
+
+    public void setPresents(int number)
+    {
+        numberOfPresentsCollected = number;
+        UIManager.Instance.updatePresentText(numberOfPresentsCollected);
     }
 
     public void collectPresent()
