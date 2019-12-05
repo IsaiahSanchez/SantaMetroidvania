@@ -116,6 +116,18 @@ public class PlayerMain : MonoBehaviour
         }
 
     }
+
+    public void tryThrowSnowball()
+    {
+        if (canThrowSnowball == true)
+        {
+            if (hasSnowBallPower == true)
+            {
+                throwSnowball();
+            }
+        }
+    }
+
     private void throwSnowball()
     {
         canThrowSnowball = false;

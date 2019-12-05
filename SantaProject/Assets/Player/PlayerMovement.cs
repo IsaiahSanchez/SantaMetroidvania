@@ -31,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isJumping = false;
     private bool isDashing = false;
     private bool isBeingKnocked = false;
+    private Vector2 inputDirection = Vector2.zero;
     private Coroutine currentDashTimer;
     private MovementState currentMovementState = MovementState.idle;
 
@@ -42,15 +43,6 @@ public class PlayerMovement : MonoBehaviour
         myBody = GetComponent<Rigidbody2D>();
         myPlayer = GetComponent<PlayerMain>();
         numberOfJumps = MaxNumberOfJumps;
-    }
-
-    private void Update()
-    {
-        if (isDashing == false && isBeingKnocked == false)
-        {
-            handleJumpInput();
-            handleDashInput();
-        }
     }
 
     private void FixedUpdate()
@@ -65,10 +57,10 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDashing == false)
         {
-            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0)
+            if (inputDirection.x != 0)
             {
                 playerAnimator.SetBool("IsRunning", true);
-                myBody.velocity = new Vector2((Input.GetAxisRaw("Horizontal") * WalkSpeed * 100f) * Time.deltaTime, myBody.velocity.y);
+                myBody.velocity = new Vector2((inputDirection.x * WalkSpeed * 100f) * Time.deltaTime, myBody.velocity.y);
             }
             else
             {
@@ -76,6 +68,11 @@ public class PlayerMovement : MonoBehaviour
                 myBody.velocity = new Vector2(0, myBody.velocity.y);
             }
         }
+    }
+
+    public void setMovmentVector(Vector2 direction)
+    {
+        inputDirection = direction;
     }
 
     public void getKnockedBack(int direction)
@@ -97,17 +94,32 @@ public class PlayerMovement : MonoBehaviour
         myPlayer.canTakeDamage = true;
     }
 
-    public void fallOffLedge()
+    public void handleStartJump()
     {
-        playerAnimator.SetBool("IsJumping", true);
-        //currentWaitingForFloor = StartCoroutine(waitForFloor());
+        if (isDashing == false && isBeingKnocked == false)
+        {
+            jump();
+        }
     }
-    private IEnumerator waitForFloor()
+    public void handleStopJump()
     {
-        yield return new WaitForSeconds(.05f);
-        playerAnimator.SetBool("IsJumping", true);
+        if (isDashing == false && isBeingKnocked == false)
+        {
+            stopJumping();
+        }
     }
+    public void hasLanded()
+    {
+        AudioManager.instance.PlaySound("Land");
+        resetPowers();
+        if (currentWaitingForFloor != null)
+        {
+            StopCoroutine(currentWaitingForFloor);
+        }
 
+        playerAnimator.SetBool("IsJumping", false);
+
+    }
 
     private void jump()
     {
@@ -144,31 +156,15 @@ public class PlayerMovement : MonoBehaviour
         myBody.gravityScale = fallDownGravity;
     }
 
-    private void handleJumpInput()
+    public void fallOffLedge()
     {
-       
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.K))
-        {
-            jump();
-        }
-
-
-        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.K))
-        {
-            stopJumping();
-        }
+        playerAnimator.SetBool("IsJumping", true);
+        //currentWaitingForFloor = StartCoroutine(waitForFloor());
     }
-    public void hasLanded()
+    private IEnumerator waitForFloor()
     {
-        AudioManager.instance.PlaySound("Land");
-        resetPowers();
-        if (currentWaitingForFloor != null)
-        {
-            StopCoroutine(currentWaitingForFloor);
-        }
-
-        playerAnimator.SetBool("IsJumping", false);
-
+        yield return new WaitForSeconds(.05f);
+        playerAnimator.SetBool("IsJumping", true);
     }
 
     public void resetPowers()
@@ -186,9 +182,9 @@ public class PlayerMovement : MonoBehaviour
         numberOfJumps = MaxNumberOfJumps;
     }
 
-    private void handleDashInput()
+    public void handleDashInput()
     {
-        if (Input.GetKeyDown(KeyCode.O) || Input.GetKeyDown(KeyCode.LeftShift))
+        if (isDashing == false && isBeingKnocked == false)
         {
             if (myPlayer.hasDashPower == true)
             {
@@ -199,6 +195,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
     private void Dash()
     {
         AudioManager.instance.PlaySound("Dash");
@@ -213,10 +210,10 @@ public class PlayerMovement : MonoBehaviour
         }
         currentDashTimer = StartCoroutine(DashCount());
         myBody.velocity = new Vector2(0, 0);
-        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0)
+        if (Mathf.Abs(inputDirection.x) > 0 || Mathf.Abs(inputDirection.y) > 0)
         {
-            Vector2 temp = (new Vector2(Input.GetAxisRaw("Horizontal") * dashSpeed, Input.GetAxisRaw("Vertical") * dashSpeed));
-            myBody.velocity = (temp.normalized*dashSpeed);
+            Vector2 directionToDash = (new Vector2(inputDirection.x * dashSpeed, inputDirection.y * dashSpeed));
+            myBody.velocity = (directionToDash.normalized*dashSpeed);
         }
         else
         {
