@@ -6,10 +6,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerInput : MonoBehaviour
 {
-    [SerializeField] InputActions Inputs;
+    [SerializeField] private InputActions Inputs;
 
     private PlayerMain mainPlayer;
     private PlayerMovement myMovement;
+    private FacingHandler playerFacing;
 
     private void Awake()
     {
@@ -20,6 +21,7 @@ public class PlayerInput : MonoBehaviour
     {
         mainPlayer = GetComponent<PlayerMain>();
         myMovement = GetComponent<PlayerMovement>();
+        playerFacing = GetComponent<FacingHandler>();
 
         Inputs.Enable();
         Inputs.Player.Jump.started += HandleStartJumping;
@@ -46,7 +48,9 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        myMovement.setMovmentVector(Inputs.Player.Move.ReadValue<Vector2>());
+        Vector2 aimDirection = Inputs.Player.Move.ReadValue<Vector2>();
+        playerFacing.playerFaceOtherDirection(aimDirection);
+        myMovement.setMovmentVector(aimDirection);
     }
 
     private void HandleStartJumping(InputAction.CallbackContext context)

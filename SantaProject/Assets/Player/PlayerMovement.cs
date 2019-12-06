@@ -57,10 +57,21 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDashing == false)
         {
+            
             if (inputDirection.x != 0)
             {
                 playerAnimator.SetBool("IsRunning", true);
-                myBody.velocity = new Vector2((inputDirection.x * WalkSpeed * 100f) * Time.deltaTime, myBody.velocity.y);
+                int MovementDirection = 0;
+                if (inputDirection.x > 0)
+                {
+                    MovementDirection = 1;
+                }
+                else
+                {
+                    MovementDirection = -1;
+                }
+
+                myBody.velocity = new Vector2((MovementDirection * WalkSpeed * 100f) * Time.deltaTime, myBody.velocity.y);
             }
             else
             {
@@ -212,7 +223,8 @@ public class PlayerMovement : MonoBehaviour
         myBody.velocity = new Vector2(0, 0);
         if (Mathf.Abs(inputDirection.x) > 0 || Mathf.Abs(inputDirection.y) > 0)
         {
-            Vector2 directionToDash = (new Vector2(inputDirection.x * dashSpeed, inputDirection.y * dashSpeed));
+            Vector2 directionToDash = (new Vector2(inputDirection.x, inputDirection.y));
+            Debug.Log(inputDirection);
             myBody.velocity = (directionToDash.normalized*dashSpeed);
         }
         else

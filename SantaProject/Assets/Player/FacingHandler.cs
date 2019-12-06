@@ -21,20 +21,34 @@ public class FacingHandler : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        if (Input.GetAxisRaw("Horizontal") != 0)
+        //if (Input.GetAxisRaw("Horizontal") != 0)
+        //{
+        //    int facing = (int)Input.GetAxisRaw("Horizontal");
+        //    if (currentFacing != facing)
+        //    {
+        //        currentFacing = facing;
+        //        faceOtherDirection(facing);
+        //    }
+        //}
+    }
+
+    public void playerFaceOtherDirection(Vector2 direction)
+    {
+        if (direction.x < 0 && currentFacing == 1)
         {
-            int facing = (int)Input.GetAxisRaw("Horizontal");
-            if (currentFacing != facing)
-            {
-                currentFacing = facing;
-                faceOtherDirection(facing);
-            }
+            currentFacing = -1;
+            faceOtherDirection(currentFacing);
+        }
+        else if (direction.x > 0 && currentFacing == -1)
+        {
+            currentFacing = 1;
+            faceOtherDirection(currentFacing);
         }
     }
 
     protected void faceOtherDirection(int direction)
     {
-        //handle snowballThrow
+        //handle snowballThrower
         if (aimTransform != null)
         {
             aimTransform.localPosition = new Vector2(direction * aimTransformX, aimTransform.localPosition.y);
