@@ -119,7 +119,10 @@ public class BatEnemy : Enemy
     protected override void die()
     {
         //stop enemy
-        StopCoroutine(currentMovementRoutine);
+        if (currentMovementRoutine != null)
+        {
+            StopCoroutine(currentMovementRoutine);
+        }
         currentBatState = BatStates.sleeping;
         stateHasChanged = true;
         myBody.gravityScale = 2.5f;

@@ -19,6 +19,7 @@ public class PlayerInput : MonoBehaviour
 
     private void OnEnable()
     {
+        
         mainPlayer = GetComponent<PlayerMain>();
         myMovement = GetComponent<PlayerMovement>();
         playerFacing = GetComponent<FacingHandler>();

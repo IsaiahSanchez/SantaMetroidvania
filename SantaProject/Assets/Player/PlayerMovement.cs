@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private FeetTrigger myFeet;
     [SerializeField] private EchoEffect myDashEcho;
+    [SerializeField] private GameObject teleportParticle;
 
     private Rigidbody2D myBody;
     private PlayerMain myPlayer;
@@ -61,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
             if (inputDirection.x != 0)
             {
                 playerAnimator.SetBool("IsRunning", true);
-                int MovementDirection = 0;
+                float MovementDirection = 0;
                 if (inputDirection.x > 0)
                 {
                     MovementDirection = 1;
@@ -69,6 +70,11 @@ public class PlayerMovement : MonoBehaviour
                 else
                 {
                     MovementDirection = -1;
+                }
+
+                if (Mathf.Abs(inputDirection.x) > .25)
+                {
+                    MovementDirection = inputDirection.x;
                 }
 
                 myBody.velocity = new Vector2((MovementDirection * WalkSpeed * 100f) * Time.deltaTime, myBody.velocity.y);
@@ -212,6 +218,7 @@ public class PlayerMovement : MonoBehaviour
         AudioManager.instance.PlaySound("Dash");
         playerAnimator.SetBool("IsJumping", true);
         myDashEcho.shouldEcho = true;
+        myDashEcho.GetComponent<ParticleSystem>().Play();
         canDash = false;
         myBody.gravityScale = 0f;
         isDashing = true;
@@ -248,7 +255,9 @@ public class PlayerMovement : MonoBehaviour
     public void TeleportToSnowBallHit(Vector2 SnowBallHitLocation)
     {
         myBody.velocity = Vector2.zero;
+        Instantiate(teleportParticle, new Vector2(transform.position.x, transform.position.y - .5f), Quaternion.identity);
         transform.position = SnowBallHitLocation + new Vector2(0,.75f);
+        Instantiate(teleportParticle, new Vector2(transform.position.x,transform.position.y-.5f), Quaternion.identity);
         playerAnimator.SetBool("IsJumping", false);
     }
 
