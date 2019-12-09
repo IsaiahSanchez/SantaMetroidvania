@@ -167,6 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageWeakPoint: {fileID: 0}
   DamageTrigger: {fileID: 0}
+  DeathParticles: {fileID: 1300091435511790726, guid: 3b17dcd6d5a93bd4e9ab6a85eb8ebd80,
+    type: 3}
 --- !u!1001 &3583716223987671006
 PrefabInstance:
   m_ObjectHideFlags: 0

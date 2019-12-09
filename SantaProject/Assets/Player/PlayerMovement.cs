@@ -27,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
     private PlayerMain myPlayer;
 
     private bool canJump = true;
+    private bool canMove = true;
     private int numberOfJumps = 0;
     private bool canDash = true;
     private bool isJumping = false;
@@ -34,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
     private bool isBeingKnocked = false;
     private Vector2 inputDirection = Vector2.zero;
     private Coroutine currentDashTimer;
+    private Coroutine currentTeleportWait;
     private MovementState currentMovementState = MovementState.idle;
 
     private Coroutine currentWaitingForFloor;
@@ -56,35 +58,39 @@ public class PlayerMovement : MonoBehaviour
 
     private void handleXMovement()
     {
-        if (isDashing == false)
-        {
-            
-            if (inputDirection.x != 0)
+       
+            if (isDashing == false)
             {
-                playerAnimator.SetBool("IsRunning", true);
-                float MovementDirection = 0;
-                if (inputDirection.x > 0)
+
+                if (inputDirection.x != 0)
                 {
-                    MovementDirection = 1;
+                if (canMove == true)
+                {
+                    playerAnimator.SetBool("IsRunning", true);
+                    float MovementDirection = 0;
+                    if (inputDirection.x > 0)
+                    {
+                        MovementDirection = 1;
+                    }
+                    else
+                    {
+                        MovementDirection = -1;
+                    }
+
+                    if (Mathf.Abs(inputDirection.x) > .25)
+                    {
+                        MovementDirection = inputDirection.x;
+                    }
+
+                    myBody.velocity = new Vector2((MovementDirection * WalkSpeed * 100f) * Time.deltaTime, myBody.velocity.y);
+                }
                 }
                 else
                 {
-                    MovementDirection = -1;
+                    playerAnimator.SetBool("IsRunning", false);
+                    myBody.velocity = new Vector2(0, myBody.velocity.y);
                 }
-
-                if (Mathf.Abs(inputDirection.x) > .25)
-                {
-                    MovementDirection = inputDirection.x;
-                }
-
-                myBody.velocity = new Vector2((MovementDirection * WalkSpeed * 100f) * Time.deltaTime, myBody.velocity.y);
             }
-            else
-            {
-                playerAnimator.SetBool("IsRunning", false);
-                myBody.velocity = new Vector2(0, myBody.velocity.y);
-            }
-        }
     }
 
     public void setMovmentVector(Vector2 direction)
@@ -254,11 +260,23 @@ public class PlayerMovement : MonoBehaviour
 
     public void TeleportToSnowBallHit(Vector2 SnowBallHitLocation)
     {
+        if (currentTeleportWait != null)
+        {
+            StopCoroutine(currentTeleportWait);
+        }
+        currentTeleportWait = StartCoroutine(waitAfterTeleport(.1f));
         myBody.velocity = Vector2.zero;
         Instantiate(teleportParticle, new Vector2(transform.position.x, transform.position.y - .5f), Quaternion.identity);
         transform.position = SnowBallHitLocation + new Vector2(0,.75f);
         Instantiate(teleportParticle, new Vector2(transform.position.x,transform.position.y-.5f), Quaternion.identity);
         playerAnimator.SetBool("IsJumping", false);
+    }
+
+    private IEnumerator waitAfterTeleport(float waitTime)
+    {
+        canMove = false;
+        yield return new WaitForSeconds(waitTime);
+        canMove = true;
     }
 
     //private void OnCollisionEnter2D(Collision2D collision)

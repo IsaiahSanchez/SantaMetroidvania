@@ -12976,7 +12976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 1693934501}
-  m_PathPosition: 158.0398
+  m_PathPosition: 132.3636
   m_PositionUnits: 1
   m_PathOffset: {x: 0, y: 0, z: 0}
   m_XDamping: 0
@@ -25729,7 +25729,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 2013752685}
-  m_PathPosition: 16.11611
+  m_PathPosition: 20.27424
   m_PositionUnits: 1
   m_PathOffset: {x: 0, y: 0, z: 0}
   m_XDamping: 0
@@ -43191,11 +43191,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1096902844, guid: 6f5463f4d5205be4385c1b17be8c7c99, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.249
+      value: 0.082
       objectReference: {fileID: 0}
     - target: {fileID: 1096902844, guid: 6f5463f4d5205be4385c1b17be8c7c99, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.02
+      value: -0.293
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f5463f4d5205be4385c1b17be8c7c99, type: 3}
@@ -49985,7 +49985,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 850014916}
-  m_PathPosition: 25.16344
+  m_PathPosition: 0
   m_PositionUnits: 1
   m_PathOffset: {x: 0, y: 0, z: 0}
   m_XDamping: 0
@@ -69350,7 +69350,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 88130828}
-  m_PathPosition: 0
+  m_PathPosition: 1.676414
   m_PositionUnits: 1
   m_PathOffset: {x: 0, y: 0, z: 0}
   m_XDamping: 0
@@ -74990,7 +74990,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 1672529183}
-  m_PathPosition: 10.39184
+  m_PathPosition: 0.9523315
   m_PositionUnits: 1
   m_PathOffset: {x: 0, y: 0, z: 0}
   m_XDamping: 0
@@ -84357,7 +84357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 1393286171}
-  m_PathPosition: 0.3276207
+  m_PathPosition: 3.320944
   m_PositionUnits: 1
   m_PathOffset: {x: 0, y: 0, z: 0}
   m_XDamping: 0
@@ -87770,7 +87770,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Path: {fileID: 438313731}
-  m_PathPosition: 0
+  m_PathPosition: 12.28533
   m_PositionUnits: 1
   m_PathOffset: {x: 0, y: 0, z: 1}
   m_XDamping: 0
@@ -93983,6 +93983,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BossDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 5956450453241469819, guid: 1cb6480bcf2b773458f6f840d406e0f6,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 5956450453424243709, guid: 1cb6480bcf2b773458f6f840d406e0f6,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -94037,11 +94042,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5956450453241469819, guid: 1cb6480bcf2b773458f6f840d406e0f6,
-        type: 3}
-      propertyPath: m_Layer
-      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 5956450453241469816, guid: 1cb6480bcf2b773458f6f840d406e0f6,
         type: 3}

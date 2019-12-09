@@ -185,6 +185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageWeakPoint: {fileID: 0}
   DamageTrigger: {fileID: 0}
+  DeathParticles: {fileID: 1300091435511790726, guid: 3b17dcd6d5a93bd4e9ab6a85eb8ebd80,
+    type: 3}
   amountToWaitBeforeRoamChecking: 3
   MovementSpeed: 2
   damageBoxRef: {fileID: 4434151660579695164}
