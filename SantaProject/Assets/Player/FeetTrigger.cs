@@ -30,6 +30,7 @@ public class FeetTrigger : MonoBehaviour
         else if (collision.gameObject.layer == 10)
         {
             Rigidbody2D collisionBody = myMovement.GetComponent<Rigidbody2D>();
+            myMovement.resetPowers();
             collisionBody.velocity = new Vector2(collisionBody.velocity.x, collisionBody.velocity.y * .05f);
             collisionBody.AddForce(new Vector2(0, 450f));
         }

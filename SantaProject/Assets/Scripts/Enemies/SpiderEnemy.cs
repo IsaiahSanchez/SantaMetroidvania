@@ -26,6 +26,14 @@ public class SpiderEnemy : Enemy
         movementSpeed = normalMovementSpeed;
     }
 
+
+    private void OnEnable()
+    {
+        if (currentState == SpiderState.dead)
+        {
+            die();
+        }
+    }
     // Update is called once per frame
     void Update()
     {
@@ -152,7 +160,10 @@ public class SpiderEnemy : Enemy
     protected override void die()
     {
         //stop enemy
-        StopCoroutine(currentMovementRoutine);
+        if (currentMovementRoutine != null)
+        {
+            StopCoroutine(currentMovementRoutine);
+        }
         stateHasChanged = false;
         currentState = SpiderState.dead;
         stateHasChanged = true;

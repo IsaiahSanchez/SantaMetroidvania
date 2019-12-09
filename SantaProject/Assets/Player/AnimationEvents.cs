@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class AnimationEvents : MonoBehaviour
 {
+    [SerializeField] ParticleSystem myfeetDust;
+
     public void ThrowSnowball()
     {
         GetComponentInParent<PlayerMain>().actuallyThrow();
@@ -11,6 +13,18 @@ public class AnimationEvents : MonoBehaviour
 
     public void playerFootStepSound()
     {
+        createDust();
+        GetComponentInParent<PlayerMain>().KickRock();
         AudioManager.instance.PlaySound("Footstep");
+    }
+
+    public void createDust()
+    {
+        myfeetDust.Play();
+    }
+
+    public void destroySelf()
+    {
+        Destroy(gameObject);
     }
 }

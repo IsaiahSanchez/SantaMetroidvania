@@ -20,17 +20,22 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private GameObject myHitBox;
     [SerializeField] private Animator playerAnimator;
     [SerializeField] private FeetTrigger myFeet;
+    [SerializeField] private EchoEffect myDashEcho;
+    [SerializeField] private GameObject teleportParticle;
 
     private Rigidbody2D myBody;
     private PlayerMain myPlayer;
 
     private bool canJump = true;
+    private bool canMove = true;
     private int numberOfJumps = 0;
     private bool canDash = true;
     private bool isJumping = false;
     private bool isDashing = false;
     private bool isBeingKnocked = false;
+    private Vector2 inputDirection = Vector2.zero;
     private Coroutine currentDashTimer;
+    private Coroutine currentTeleportWait;
     private MovementState currentMovementState = MovementState.idle;
 
     private Coroutine currentWaitingForFloor;
@@ -43,15 +48,6 @@ public class PlayerMovement : MonoBehaviour
         numberOfJumps = MaxNumberOfJumps;
     }
 
-    private void Update()
-    {
-        if (isDashing == false && isBeingKnocked == false)
-        {
-            handleJumpInput();
-            handleDashInput();
-        }
-    }
-
     private void FixedUpdate()
     {
         if (isBeingKnocked == false)
@@ -62,19 +58,44 @@ public class PlayerMovement : MonoBehaviour
 
     private void handleXMovement()
     {
-        if (isDashing == false)
-        {
-            if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0)
+       
+            if (isDashing == false)
             {
-                playerAnimator.SetBool("IsRunning", true);
-                myBody.velocity = new Vector2((Input.GetAxisRaw("Horizontal") * WalkSpeed * 100f) * Time.deltaTime, myBody.velocity.y);
+
+                if (inputDirection.x != 0)
+                {
+                if (canMove == true)
+                {
+                    playerAnimator.SetBool("IsRunning", true);
+                    float MovementDirection = 0;
+                    if (inputDirection.x > 0)
+                    {
+                        MovementDirection = 1;
+                    }
+                    else
+                    {
+                        MovementDirection = -1;
+                    }
+
+                    if (Mathf.Abs(inputDirection.x) > .25)
+                    {
+                        MovementDirection = inputDirection.x;
+                    }
+
+                    myBody.velocity = new Vector2((MovementDirection * WalkSpeed * 100f) * Time.deltaTime, myBody.velocity.y);
+                }
+                }
+                else
+                {
+                    playerAnimator.SetBool("IsRunning", false);
+                    myBody.velocity = new Vector2(0, myBody.velocity.y);
+                }
             }
-            else
-            {
-                playerAnimator.SetBool("IsRunning", false);
-                myBody.velocity = new Vector2(0, myBody.velocity.y);
-            }
-        }
+    }
+
+    public void setMovmentVector(Vector2 direction)
+    {
+        inputDirection = direction;
     }
 
     public void getKnockedBack(int direction)
@@ -86,27 +107,42 @@ public class PlayerMovement : MonoBehaviour
         myBody.velocity = Vector2.zero;
         myBody.AddForce(new Vector2(1 * direction,.75f).normalized * knockBackAmount);
         //disable hit box temporarily
-        myHitBox.SetActive(false);
+        myPlayer.canTakeDamage = false;
     }
     private IEnumerator lossInputTimer()
     {
         yield return new WaitForSeconds(knockBackDuration);
         //regain control and gain hitbox again
         isBeingKnocked = false;
-        myHitBox.SetActive(true);
+        myPlayer.canTakeDamage = true;
     }
 
-    public void fallOffLedge()
+    public void handleStartJump()
     {
-        playerAnimator.SetBool("IsJumping", true);
-        //currentWaitingForFloor = StartCoroutine(waitForFloor());
+        if (isDashing == false && isBeingKnocked == false)
+        {
+            jump();
+        }
     }
-    private IEnumerator waitForFloor()
+    public void handleStopJump()
     {
-        yield return new WaitForSeconds(.05f);
-        playerAnimator.SetBool("IsJumping", true);
+        if (isDashing == false && isBeingKnocked == false)
+        {
+            stopJumping();
+        }
     }
+    public void hasLanded()
+    {
+        AudioManager.instance.PlaySound("Land");
+        resetPowers();
+        if (currentWaitingForFloor != null)
+        {
+            StopCoroutine(currentWaitingForFloor);
+        }
 
+        playerAnimator.SetBool("IsJumping", false);
+
+    }
 
     private void jump()
     {
@@ -119,6 +155,7 @@ public class PlayerMovement : MonoBehaviour
             myBody.gravityScale = jumpUpGravity;
             numberOfJumps--;
             StartCoroutine(countTilDoneJumping());
+            myPlayer.spawnLandingDust();
 
             if (numberOfJumps <= 0)
             {
@@ -142,34 +179,25 @@ public class PlayerMovement : MonoBehaviour
         myBody.gravityScale = fallDownGravity;
     }
 
-    private void handleJumpInput()
+    public void fallOffLedge()
     {
-       
-        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.K))
-        {
-            jump();
-        }
-
-
-        if (Input.GetKeyUp(KeyCode.Space) || Input.GetKeyUp(KeyCode.K))
-        {
-            stopJumping();
-        }
+        playerAnimator.SetBool("IsJumping", true);
+        //currentWaitingForFloor = StartCoroutine(waitForFloor());
     }
-    public void hasLanded()
+    private IEnumerator waitForFloor()
     {
-        AudioManager.instance.PlaySound("Land");
+        yield return new WaitForSeconds(.05f);
+        playerAnimator.SetBool("IsJumping", true);
+    }
+
+    public void resetPowers()
+    {
         canJump = true;
         numberOfJumps = MaxNumberOfJumps;
         canDash = true;
-
-        if (currentWaitingForFloor != null)
-        {
-            StopCoroutine(currentWaitingForFloor);
-        }
-
-        playerAnimator.SetBool("IsJumping", false);
+        myPlayer.spawnLandingDust();
     }
+    
 
     public void notifyOfDoubleJumpGet()
     {
@@ -177,9 +205,9 @@ public class PlayerMovement : MonoBehaviour
         numberOfJumps = MaxNumberOfJumps;
     }
 
-    private void handleDashInput()
+    public void handleDashInput()
     {
-        if (Input.GetKeyDown(KeyCode.O) || Input.GetKeyDown(KeyCode.LeftShift))
+        if (isDashing == false && isBeingKnocked == false)
         {
             if (myPlayer.hasDashPower == true)
             {
@@ -190,10 +218,13 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
     private void Dash()
     {
         AudioManager.instance.PlaySound("Dash");
         playerAnimator.SetBool("IsJumping", true);
+        myDashEcho.shouldEcho = true;
+        myDashEcho.GetComponent<ParticleSystem>().Play();
         canDash = false;
         myBody.gravityScale = 0f;
         isDashing = true;
@@ -203,10 +234,11 @@ public class PlayerMovement : MonoBehaviour
         }
         currentDashTimer = StartCoroutine(DashCount());
         myBody.velocity = new Vector2(0, 0);
-        if (Mathf.Abs(Input.GetAxisRaw("Horizontal")) > 0 || Mathf.Abs(Input.GetAxisRaw("Vertical")) > 0)
+        if (Mathf.Abs(inputDirection.x) > 0 || Mathf.Abs(inputDirection.y) > 0)
         {
-            Vector2 temp = (new Vector2(Input.GetAxisRaw("Horizontal") * dashSpeed, Input.GetAxisRaw("Vertical") * dashSpeed));
-            myBody.velocity = (temp.normalized*dashSpeed);
+            Vector2 directionToDash = (new Vector2(inputDirection.x, inputDirection.y));
+            Debug.Log(inputDirection);
+            myBody.velocity = (directionToDash.normalized*dashSpeed);
         }
         else
         {
@@ -223,13 +255,28 @@ public class PlayerMovement : MonoBehaviour
         {
             hasLanded();
         }
+        myDashEcho.shouldEcho = false;
     }
 
     public void TeleportToSnowBallHit(Vector2 SnowBallHitLocation)
     {
+        if (currentTeleportWait != null)
+        {
+            StopCoroutine(currentTeleportWait);
+        }
+        currentTeleportWait = StartCoroutine(waitAfterTeleport(.1f));
         myBody.velocity = Vector2.zero;
-        transform.position = SnowBallHitLocation + new Vector2(0,1f);
+        Instantiate(teleportParticle, new Vector2(transform.position.x, transform.position.y - .5f), Quaternion.identity);
+        transform.position = SnowBallHitLocation + new Vector2(0,.75f);
+        Instantiate(teleportParticle, new Vector2(transform.position.x,transform.position.y-.5f), Quaternion.identity);
         playerAnimator.SetBool("IsJumping", false);
+    }
+
+    private IEnumerator waitAfterTeleport(float waitTime)
+    {
+        canMove = false;
+        yield return new WaitForSeconds(waitTime);
+        canMove = true;
     }
 
     //private void OnCollisionEnter2D(Collision2D collision)

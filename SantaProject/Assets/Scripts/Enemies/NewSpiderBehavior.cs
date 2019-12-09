@@ -31,7 +31,11 @@ public class NewSpiderBehavior : Enemy
 
     private void OnEnable()
     {
-        
+        if (currentState == spiderState.Dead)
+        {
+            myAnimator.ResetTrigger("TriggerDeath");
+            myAnimator.SetTrigger("TriggerDeath");
+        }
     }
 
     private void Start()
@@ -186,6 +190,7 @@ public class NewSpiderBehavior : Enemy
         WeakPointRef.SetActive(false);
 
         //play animation of dying
+        myAnimator.ResetTrigger("TriggerDeath");
         myAnimator.SetTrigger("TriggerDeath");
         base.die();
     }

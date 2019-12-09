@@ -6,6 +6,8 @@ public class SnowBall : MonoBehaviour
 {
     private PlayerMain playerRef;
     private Rigidbody2D myBody;
+    private bool hitSomethingAlready = false;
+
 
     private void Awake()
     {
@@ -16,6 +18,7 @@ public class SnowBall : MonoBehaviour
     {
         playerRef = playerReference;
         BeginMoving(direction, speed);
+        hitSomethingAlready = false;
     }
 
     private void BeginMoving(Vector2 dir, float speed)
@@ -23,15 +26,26 @@ public class SnowBall : MonoBehaviour
         myBody.velocity = dir * speed;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void snowBallHitBox(Vector2 fromWhere)
     {
-        playerRef.snowBallHasHit(transform.position);
-        disableSnowball();
+        if (hitSomethingAlready == false)
+        {
+            playerRef.snowBallHasHit(new Vector2(transform.position.x, transform.position.y) - fromWhere);
+            hitSomethingAlready = true;
+            disableSnowball();
+        }
     }
+
+    //private void OnCollisionEnter2D(Collision2D collision)
+    //{
+    //    playerRef.snowBallHasHit(transform.position);
+    //    disableSnowball();
+    //}
 
     public void disableSnowball()
     {
         transform.parent = playerRef.transform;
+        transform.position = new Vector2(0,-1f);
         gameObject.SetActive(false);
     }
 }

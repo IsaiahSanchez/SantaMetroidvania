@@ -66,9 +66,9 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingLayerID: -651535391
+  m_SortingLayer: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 81a3b5e0eb729e24ea9a1f09c63d7b2e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -185,6 +185,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DamageWeakPoint: {fileID: 0}
   DamageTrigger: {fileID: 0}
+  DeathParticles: {fileID: 1300091435511790726, guid: 3b17dcd6d5a93bd4e9ab6a85eb8ebd80,
+    type: 3}
   amountToWaitBeforeRoamChecking: 3
   MovementSpeed: 2
   damageBoxRef: {fileID: 4434151660579695164}
