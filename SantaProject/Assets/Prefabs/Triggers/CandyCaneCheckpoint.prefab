@@ -155,3 +155,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   respawnLocation: {fileID: 3062837431210637248}
+  checkpointHitParticle: {fileID: 178644848066399351, guid: df9f3f66b8282b045ae50666fa2683b0,
+    type: 3}

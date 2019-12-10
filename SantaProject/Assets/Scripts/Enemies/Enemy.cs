@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
         hitPoints--;
         if (hitPoints <= 0)
         {
+            CameraShake.instance.addLittleShake();
             die();
         }
     }
@@ -28,7 +29,7 @@ public class Enemy : MonoBehaviour
     protected virtual void die()
     {
         //disable hitboxes and play dying animation and then do nothing.
-        Instantiate(DeathParticles, transform.position, Quaternion.identity);
+        Instantiate(DeathParticles, new Vector2(transform.position.x, transform.position.y -.25f), Quaternion.identity);
         AudioManager.instance.PlaySound("EnemyDeath");
     }
 

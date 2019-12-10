@@ -152,6 +152,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d6a3cb40b3d3ff64ca06858301800660, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pickupParticle: {fileID: 4024750591658028090, guid: f9ef257d88ba8df47aa7454551853b96,
+    type: 3}
+  ObjID: 0
+  hasBeenCollected: 0
 --- !u!95 &5926449465725603671
 Animator:
   serializedVersion: 3

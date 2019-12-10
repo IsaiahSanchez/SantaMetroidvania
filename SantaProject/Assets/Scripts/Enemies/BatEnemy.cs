@@ -107,14 +107,14 @@ public class BatEnemy : Enemy
         stateHasChanged = true;
     }
 
-    public override void damageEnemy()
-    {
-        hitPoints--;
-        if (hitPoints <= 0)
-        {
-            die();
-        }
-    }
+    //public override void damageEnemy()
+    //{
+    //    hitPoints--;
+    //    if (hitPoints <= 0)
+    //    {
+    //        die();
+    //    }
+    //}
 
     protected override void die()
     {

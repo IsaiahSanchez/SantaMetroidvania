@@ -59,6 +59,11 @@ public class PlayerMain : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            CameraShake.instance.addShake(1, 1, 1, 1);
+        }
+
         if (canThrowSnowball == true)
         {
             if (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.Return))
@@ -194,6 +199,7 @@ public class PlayerMain : MonoBehaviour
         {
             health -= amount;
             UIManager.Instance.updatePlayerHealthText(health);
+            CameraShake.instance.addBigShake();
             //knockback  need to create function in playermovement script.
             myMovement.getKnockedBack(direction);
             AudioManager.instance.PlaySound("PlayerHurt");
@@ -214,6 +220,7 @@ public class PlayerMain : MonoBehaviour
     public void collectPresent()
     {
         numberOfPresentsCollected++;
+        CameraShake.instance.addLittleShake();
         UIManager.Instance.updatePresentText(numberOfPresentsCollected);
         AudioManager.instance.PlaySound("PresentCollect");
     }

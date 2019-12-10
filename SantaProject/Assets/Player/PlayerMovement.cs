@@ -222,7 +222,8 @@ public class PlayerMovement : MonoBehaviour
     private void Dash()
     {
         AudioManager.instance.PlaySound("Dash");
-        playerAnimator.SetBool("IsJumping", true);
+        playerAnimator.ResetTrigger("Dash");
+        playerAnimator.SetTrigger("Dash");
         myDashEcho.shouldEcho = true;
         myDashEcho.GetComponent<ParticleSystem>().Play();
         canDash = false;

@@ -168,14 +168,14 @@ public class NewSpiderBehavior : Enemy
         StartCoroutine(roamingDirectionChanger());
     }
 
-    public override void damageEnemy()
-    {
-        hitPoints--;
-        if (hitPoints <= 0)
-        {
-            die();
-        }
-    }
+    //public override void damageEnemy()
+    //{
+    //    hitPoints--;
+    //    if (hitPoints <= 0)
+    //    {
+    //        die();
+    //    }
+    //}
 
     protected override void die()
     {
