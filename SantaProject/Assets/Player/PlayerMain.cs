@@ -12,6 +12,8 @@ public class PlayerMain : MonoBehaviour
     [SerializeField] private float timeAfterTeleportToEnableThrowing;
     [SerializeField] private Animator anim;
 
+    [SerializeField] private List<SpriteRenderer> sprites = new List<SpriteRenderer>();
+
     private bool canThrowSnowball = true;
     private Coroutine mainWaitCoroutine;
     private SnowBall currentSnowball;
@@ -21,6 +23,7 @@ public class PlayerMain : MonoBehaviour
     public bool hasDoubleJumpPower = false;
     public bool hasDashPower = false;
     public bool hasSnowBallPower = false;
+    public bool isDead = false;
     public int numberOfPresentsCollected = 0;
     public bool canTakeDamage = true;
 
@@ -28,7 +31,7 @@ public class PlayerMain : MonoBehaviour
 
     private void Awake()
     {
-       
+        health = maxPlayerHealth;
         myMovement = GetComponent<PlayerMovement>();
     }
 
@@ -53,26 +56,6 @@ public class PlayerMain : MonoBehaviour
         {
             hasSnowBallPower = false;
             givePower(2, false);
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            CameraShake.instance.addShake(1, 1, 1, 1);
-        }
-
-        if (canThrowSnowball == true)
-        {
-            if (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.Return))
-            {
-                if (hasSnowBallPower == true)
-                {
-                    throwSnowball();
-                }
-            }
         }
     }
 
@@ -195,20 +178,48 @@ public class PlayerMain : MonoBehaviour
 
     public void TakeDamage(float amount, int direction)
     {
-        if (canTakeDamage == true)
+        if (isDead == false)
         {
-            health -= amount;
-            UIManager.Instance.updatePlayerHealthText(health);
-            CameraShake.instance.addBigShake();
-            //knockback  need to create function in playermovement script.
-            myMovement.getKnockedBack(direction);
-            AudioManager.instance.PlaySound("PlayerHurt");
+            if (canTakeDamage == true)
+            {
+                health -= amount;
+                UIManager.Instance.updatePlayerHealthText(health);
+                CameraShake.instance.addBigShake();
+                //knockback  need to create function in playermovement script.
+                myMovement.getKnockedBack(direction);
+                AudioManager.instance.PlaySound("PlayerHurt");
+                StartCoroutine(flashWait());
+            }
+            if (health <= 0)
+            {
+                //die
+                isDead = true;
+                anim.ResetTrigger("Die");
+                anim.SetTrigger("Die");
+                StartCoroutine(waitForGameOver());
+            }
         }
-        if (health <= 0)
+    }
+
+    private IEnumerator flashWait()
+    {
+        foreach (SpriteRenderer sprite in sprites)
         {
-            //die
-            GameManager.Instance.StartGameOver();
+            sprite.color = new Vector4(1, 0, 0, 1);
         }
+
+        yield return new WaitForSeconds(.2f);
+
+        foreach (SpriteRenderer sprite in sprites)
+        {
+            sprite.color = new Vector4(1, 1, 1, 1);
+        }
+    }
+
+    private IEnumerator waitForGameOver()
+    {
+        yield return new WaitForSeconds(3f);
+        GameManager.Instance.StartGameOver();
     }
 
     public void setPresents(int number)

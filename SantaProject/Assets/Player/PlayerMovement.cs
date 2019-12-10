@@ -58,32 +58,33 @@ public class PlayerMovement : MonoBehaviour
 
     private void handleXMovement()
     {
-       
+        if (myPlayer.isDead == false)
+        {
             if (isDashing == false)
             {
 
                 if (inputDirection.x != 0)
                 {
-                if (canMove == true)
-                {
-                    playerAnimator.SetBool("IsRunning", true);
-                    float MovementDirection = 0;
-                    if (inputDirection.x > 0)
+                    if (canMove == true)
                     {
-                        MovementDirection = 1;
-                    }
-                    else
-                    {
-                        MovementDirection = -1;
-                    }
+                        playerAnimator.SetBool("IsRunning", true);
+                        float MovementDirection = 0;
+                        if (inputDirection.x > 0)
+                        {
+                            MovementDirection = 1;
+                        }
+                        else
+                        {
+                            MovementDirection = -1;
+                        }
 
-                    if (Mathf.Abs(inputDirection.x) > .25)
-                    {
-                        MovementDirection = inputDirection.x;
-                    }
+                        if (Mathf.Abs(inputDirection.x) > .25)
+                        {
+                            MovementDirection = inputDirection.x;
+                        }
 
-                    myBody.velocity = new Vector2((MovementDirection * WalkSpeed * 100f) * Time.deltaTime, myBody.velocity.y);
-                }
+                        myBody.velocity = new Vector2((MovementDirection * WalkSpeed * 100f) * Time.deltaTime, myBody.velocity.y);
+                    }
                 }
                 else
                 {
@@ -91,6 +92,11 @@ public class PlayerMovement : MonoBehaviour
                     myBody.velocity = new Vector2(0, myBody.velocity.y);
                 }
             }
+        }
+        else
+        {
+            myBody.velocity = new Vector2(0, myBody.velocity.y);
+        }
     }
 
     public void setMovmentVector(Vector2 direction)

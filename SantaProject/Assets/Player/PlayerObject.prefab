@@ -14501,7 +14501,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1096902843}
   m_LocalRotation: {x: 0, y: 0, z: 0.10756562, w: 0.994198}
-  m_LocalPosition: {x: 0.389, y: 0.249, z: 0}
+  m_LocalPosition: {x: -0.293, y: 0.082, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 0}
   m_Children:
   - {fileID: 1726644031}
@@ -14869,10 +14869,22 @@ MonoBehaviour:
   SnowBallThrowSpeed: 18
   timeAfterTeleportToEnableThrowing: 0.25
   anim: {fileID: 7929319602046702048}
+  sprites:
+  - {fileID: 2458178358777276038}
+  - {fileID: 7805699307116596552}
+  - {fileID: 1976930192095339076}
+  - {fileID: 3037106259423052207}
+  - {fileID: 2645296356260261145}
+  - {fileID: 6735144975615327157}
+  - {fileID: 6167078237441520167}
+  - {fileID: 5220639757977424666}
+  - {fileID: 5350913293320744307}
+  - {fileID: 3856353129303909712}
   maxPlayerHealth: 40
   hasDoubleJumpPower: 1
   hasDashPower: 1
   hasSnowBallPower: 1
+  isDead: 0
   numberOfPresentsCollected: 0
   canTakeDamage: 1
 --- !u!114 &2807371100502374890
@@ -15521,6 +15533,66 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e6ba34460b44a641be1f29358eb99da, type: 3}
+--- !u!212 &3856353129303909712 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6597244142171832928, guid: 0e6ba34460b44a641be1f29358eb99da,
+    type: 3}
+  m_PrefabInstance: {fileID: 7929319602172847920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &5350913293320744307 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2614578592415320643, guid: 0e6ba34460b44a641be1f29358eb99da,
+    type: 3}
+  m_PrefabInstance: {fileID: 7929319602172847920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &5220639757977424666 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 2772504441210500138, guid: 0e6ba34460b44a641be1f29358eb99da,
+    type: 3}
+  m_PrefabInstance: {fileID: 7929319602172847920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &6167078237441520167 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4296230436397618455, guid: 0e6ba34460b44a641be1f29358eb99da,
+    type: 3}
+  m_PrefabInstance: {fileID: 7929319602172847920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &2645296356260261145 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5386130538120268329, guid: 0e6ba34460b44a641be1f29358eb99da,
+    type: 3}
+  m_PrefabInstance: {fileID: 7929319602172847920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &6735144975615327157 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 3707184328887966853, guid: 0e6ba34460b44a641be1f29358eb99da,
+    type: 3}
+  m_PrefabInstance: {fileID: 7929319602172847920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &3037106259423052207 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4913253640477288095, guid: 0e6ba34460b44a641be1f29358eb99da,
+    type: 3}
+  m_PrefabInstance: {fileID: 7929319602172847920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1976930192095339076 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 8459428762165675380, guid: 0e6ba34460b44a641be1f29358eb99da,
+    type: 3}
+  m_PrefabInstance: {fileID: 7929319602172847920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &7805699307116596552 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 169430358528322168, guid: 0e6ba34460b44a641be1f29358eb99da,
+    type: 3}
+  m_PrefabInstance: {fileID: 7929319602172847920}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &2458178358777276038 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 5483042505747661238, guid: 0e6ba34460b44a641be1f29358eb99da,
+    type: 3}
+  m_PrefabInstance: {fileID: 7929319602172847920}
+  m_PrefabAsset: {fileID: 0}
 --- !u!95 &7929319602046702048 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 411367120, guid: 0e6ba34460b44a641be1f29358eb99da,

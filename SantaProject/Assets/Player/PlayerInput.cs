@@ -49,21 +49,30 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        Vector2 aimDirection = Inputs.Player.Move.ReadValue<Vector2>();
-        playerFacing.playerFaceOtherDirection(aimDirection);
-        myMovement.setMovmentVector(aimDirection);
+        if (mainPlayer.isDead == false)
+        {
+            Vector2 aimDirection = Inputs.Player.Move.ReadValue<Vector2>();
+            playerFacing.playerFaceOtherDirection(aimDirection);
+            myMovement.setMovmentVector(aimDirection);
+        }
     }
 
     private void HandleStartJumping(InputAction.CallbackContext context)
     {
-        myMovement.handleStartJump();
-        Debug.Log("StartJumping");
+        if (mainPlayer.isDead == false)
+        {
+            myMovement.handleStartJump();
+            Debug.Log("StartJumping");
+        }
     }
 
     private void HandleStopJumping(InputAction.CallbackContext context)
     {
-        myMovement.handleStopJump();
-        Debug.Log("StopJumping");
+        if (mainPlayer.isDead == false)
+        {
+            myMovement.handleStopJump();
+            Debug.Log("StopJumping");
+        }
     }
 
 
@@ -76,14 +85,20 @@ public class PlayerInput : MonoBehaviour
 
     private void HandleDash(InputAction.CallbackContext context)
     {
-        myMovement.handleDashInput();
-        Debug.Log("Dash");
+        if (mainPlayer.isDead == false)
+        {
+            myMovement.handleDashInput();
+            Debug.Log("Dash");
+        }
     }
 
 
     private void HandleThrow(InputAction.CallbackContext context)
     {
-        mainPlayer.tryThrowSnowball();
-        Debug.Log("Throw");
+        if (mainPlayer.isDead == false)
+        {
+            mainPlayer.tryThrowSnowball();
+            Debug.Log("Throw");
+        }
     }
 }
