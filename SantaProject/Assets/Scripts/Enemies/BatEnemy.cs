@@ -11,6 +11,7 @@ public class BatEnemy : Enemy
     [SerializeField] float timeWaiting = .75f;
     [SerializeField] float bufferCircle = .25f;
     [SerializeField] GameObject damageBoxRef, WeakPointRef, playerDetectorRef;
+    [SerializeField] Animator anim;
 
 
     private BatStates currentBatState = BatStates.sleeping;
@@ -40,15 +41,21 @@ public class BatEnemy : Enemy
             switch (currentBatState)
             {
                 case BatStates.sleeping:
+                    anim.ResetTrigger("StartSleeping");
+                    anim.SetTrigger("StartSleeping");
                     myBody.velocity = Vector2.zero;
                     stateHasChanged = false;
                     return;
                 case BatStates.chasing:
                     stateHasChanged = false;
+                    anim.ResetTrigger("StartFlying");
+                    anim.SetTrigger("StartFlying");
                     currentMovementRoutine = StartCoroutine(chasePlayer());
                     return;
                 case BatStates.returning:
                     stateHasChanged = false;
+                    anim.ResetTrigger("StartFlying");
+                    anim.SetTrigger("StartFlying");
                     currentMovementRoutine = StartCoroutine(moveEnemyHome());
                     return;
             }

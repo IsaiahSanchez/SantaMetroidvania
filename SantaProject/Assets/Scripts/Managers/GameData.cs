@@ -10,6 +10,7 @@ public class GameData
     public bool playerSnowball;
     public float playerMaxHealth;
     public int presentsCollected;
+    public bool BossIsAlive;
 
     public float xSpawn;
     public float ySpawn;

@@ -11,6 +11,7 @@ public class GameDataManager : MonoBehaviour
 
     public PickupObject[] pickupableObjects = new PickupObject[150];
     public int size = 34;
+    public bool bossIsAlive = true;
 
     private void Awake()
     {
@@ -44,11 +45,6 @@ public class GameDataManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            saveGame(Vector2.zero);
-        }
-
         if (Input.GetKeyDown(KeyCode.T))
         {
             if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
@@ -78,6 +74,7 @@ public class GameDataManager : MonoBehaviour
             }
         }
 
+        bossIsAlive = saveData.BossIsAlive;
         StartCoroutine(playerChanges(saveData));
     }
 
@@ -86,6 +83,7 @@ public class GameDataManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         givePlayerPowers(save);
         changePlayerSpawnLocation(save);
+        BossMain.instance.setBossAliveState(bossIsAlive);
         GameManager.Instance.mainPlayer.setPresents(save.presentsCollected);
         GameManager.Instance.mainPlayer.setPlayerHealthMax(save.playerMaxHealth, true);
     }
@@ -134,7 +132,7 @@ public class GameDataManager : MonoBehaviour
         saveData.presentsCollected = GameManager.Instance.mainPlayer.numberOfPresentsCollected;
         saveData.xSpawn = PlayerSpawnLocation.x;
         saveData.ySpawn = PlayerSpawnLocation.y;
-
+        saveData.BossIsAlive = bossIsAlive;
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");

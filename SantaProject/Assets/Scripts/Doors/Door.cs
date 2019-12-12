@@ -8,8 +8,7 @@ public class Door : MonoBehaviour
     [SerializeField] private bool isOpening;
     [SerializeField] private float speed = 10f;
 
-    private bool isAtIntendedPosition = true;
-    private float timeToOpen = 1f;
+    protected bool isAtIntendedPosition = true;
     private Vector2 currentAimPosition = Vector2.zero;
     private Rigidbody2D myBody;
 
@@ -18,12 +17,7 @@ public class Door : MonoBehaviour
         myBody = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
-    {
-        
-    }
-
-    private void Update()
+    protected virtual void Update()
     {
         if (isAtIntendedPosition == false)
         {
