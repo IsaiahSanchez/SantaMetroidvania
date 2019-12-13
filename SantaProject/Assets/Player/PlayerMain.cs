@@ -38,7 +38,7 @@ public class PlayerMain : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        UIManager.Instance.updatePlayerHealthText(health);
+        UIManager.Instance.updatePlayerHealthText(health, maxPlayerHealth);
         UIManager.Instance.showPowerup("WASD or Arrow Keys to move, K or Space to jump");
         if (hasDoubleJumpPower == true)
         {
@@ -67,7 +67,7 @@ public class PlayerMain : MonoBehaviour
         }
 
         health = maxPlayerHealth;
-        UIManager.Instance.updatePlayerHealthText(health);
+        UIManager.Instance.updatePlayerHealthText(health, maxPlayerHealth);
     }
 
     public void givePower(int powerIndex, bool shouldShowText)
@@ -80,6 +80,7 @@ public class PlayerMain : MonoBehaviour
                 {
                     nameAndDescription = "You have gained the Double Jump power, press Jump a second time while in mid air to jump a second time!";
                     hasDoubleJumpPower = true;
+                    UIManager.Instance.hasDoubleJump();
                     myMovement.notifyOfDoubleJumpGet();
                 }
                 break;
@@ -87,6 +88,7 @@ public class PlayerMain : MonoBehaviour
                 if (hasDashPower == false)
                 {
                     nameAndDescription = "You have gained the Dash power, press O to dash the direction you are aiming with WASD!";
+                    UIManager.Instance.hasDash();
                     hasDashPower = true;
                 }
                 break;
@@ -94,6 +96,7 @@ public class PlayerMain : MonoBehaviour
                 if(hasSnowBallPower == false)
                 {
                     nameAndDescription = "You have gained the Snow Ball Teleport power, press J to throw a snowball that will teleport you to where it lands!";
+                    UIManager.Instance.hasSnowball();
                     hasSnowBallPower = true;
                 }
                 break;
@@ -132,6 +135,7 @@ public class PlayerMain : MonoBehaviour
             currentSnowball.transform.parent = snowballThrowLocation;
         }
         anim.SetTrigger("ThrowSnowball");
+        UIManager.Instance.setSnowballInactive();
 
     }
 
@@ -183,7 +187,7 @@ public class PlayerMain : MonoBehaviour
             if (canTakeDamage == true)
             {
                 health -= amount;
-                UIManager.Instance.updatePlayerHealthText(health);
+                UIManager.Instance.updatePlayerHealthText(health, maxPlayerHealth);
                 CameraShake.instance.addBigShake();
                 //knockback  need to create function in playermovement script.
                 myMovement.getKnockedBack(direction);
@@ -196,7 +200,8 @@ public class PlayerMain : MonoBehaviour
                 isDead = true;
                 anim.ResetTrigger("Die");
                 anim.SetTrigger("Die");
-                StartCoroutine(waitForGameOver());
+                GameManager.Instance.StartGameOver();
+                //StartCoroutine(waitForGameOver());
             }
         }
     }

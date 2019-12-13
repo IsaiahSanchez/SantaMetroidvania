@@ -62,7 +62,7 @@ public class PlayerInput : MonoBehaviour
         if (mainPlayer.isDead == false)
         {
             myMovement.handleStartJump();
-            Debug.Log("StartJumping");
+
         }
     }
 
@@ -71,7 +71,7 @@ public class PlayerInput : MonoBehaviour
         if (mainPlayer.isDead == false)
         {
             myMovement.handleStopJump();
-            Debug.Log("StopJumping");
+
         }
     }
 
@@ -88,7 +88,7 @@ public class PlayerInput : MonoBehaviour
         if (mainPlayer.isDead == false)
         {
             myMovement.handleDashInput();
-            Debug.Log("Dash");
+
         }
     }
 
@@ -98,7 +98,7 @@ public class PlayerInput : MonoBehaviour
         if (mainPlayer.isDead == false)
         {
             mainPlayer.tryThrowSnowball();
-            Debug.Log("Throw");
+
         }
     }
 }

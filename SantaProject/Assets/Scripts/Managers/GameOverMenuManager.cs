@@ -7,12 +7,23 @@ public class GameOverMenuManager : MonoBehaviour
 {
     public void BackToMainMenu()
     {
-        SceneManager.LoadScene(0);
-
+        StartCoroutine(coBackToMainMenu());
     }
+    private IEnumerator coBackToMainMenu()
+    {
+        SceneFader.instance.FadeToBlack();
+        yield return new WaitForSecondsRealtime(1f);
+        SceneManager.LoadScene(0);
+    } 
 
     public void RestartGame()
     {
+        StartCoroutine(coRestartGame());
+    }
+    private IEnumerator coRestartGame()
+    {
+        SceneFader.instance.FadeToBlack();
+        yield return new WaitForSecondsRealtime(1f);
         SceneManager.LoadScene(1);
     }
 }

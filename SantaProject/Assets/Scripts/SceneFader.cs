@@ -29,7 +29,6 @@ public class SceneFader : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            Object.DontDestroyOnLoad(this);
         }
         else
         {
@@ -42,7 +41,7 @@ public class SceneFader : MonoBehaviour
         if (isDoneFading == false)
         {
             handleFading();
-            faderPanel.color = new Vector4(0, 0, 0, currentOpacity);    
+            faderPanel.color = new Vector4(1, 1, 1, currentOpacity);    
         }
 
         if (currentOpacity <= 0)

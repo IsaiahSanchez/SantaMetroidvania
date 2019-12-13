@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
             if (isDashing == false)
             {
 
-                if (inputDirection.x != 0)
+                if (Mathf.Abs(inputDirection.x) > .25f)
                 {
                     if (canMove == true)
                     {
@@ -78,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
                             MovementDirection = -1;
                         }
 
-                        if (Mathf.Abs(inputDirection.x) > .25)
+                        if (Mathf.Abs(inputDirection.x) > .25f)
                         {
                             MovementDirection = inputDirection.x;
                         }
@@ -166,6 +166,7 @@ public class PlayerMovement : MonoBehaviour
             if (numberOfJumps <= 0)
             {
                 canJump = false;
+                UIManager.Instance.setDoubleJumpInactive();
             }
         }
     }
@@ -202,6 +203,8 @@ public class PlayerMovement : MonoBehaviour
         numberOfJumps = MaxNumberOfJumps;
         canDash = true;
         myPlayer.spawnLandingDust();
+        UIManager.Instance.setDashActive();
+        UIManager.Instance.setDoubleJumpActive();
     }
     
 
@@ -235,6 +238,7 @@ public class PlayerMovement : MonoBehaviour
         canDash = false;
         myBody.gravityScale = 0f;
         isDashing = true;
+        UIManager.Instance.setDashInactive();
         if (currentDashTimer != null)
         {
             StopCoroutine(currentDashTimer);
@@ -244,7 +248,6 @@ public class PlayerMovement : MonoBehaviour
         if (Mathf.Abs(inputDirection.x) > 0 || Mathf.Abs(inputDirection.y) > 0)
         {
             Vector2 directionToDash = (new Vector2(inputDirection.x, inputDirection.y));
-            Debug.Log(inputDirection);
             myBody.velocity = (directionToDash.normalized*dashSpeed);
         }
         else
@@ -277,6 +280,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = SnowBallHitLocation + new Vector2(0,.75f);
         Instantiate(teleportParticle, new Vector2(transform.position.x,transform.position.y-.5f), Quaternion.identity);
         playerAnimator.SetBool("IsJumping", false);
+        UIManager.Instance.setSnowballActive();
     }
 
     private IEnumerator waitAfterTeleport(float waitTime)
