@@ -41,6 +41,15 @@ public class GameDataManager : MonoBehaviour
                 LoadGame();
             }
         }
+
+    }
+
+    private void Start()
+    {
+        if (!(File.Exists(Application.persistentDataPath + "/gamesave.save")))
+        {
+            StartCoroutine(startupDialogs());
+        }
     }
 
     private void Update()
@@ -53,6 +62,13 @@ public class GameDataManager : MonoBehaviour
                 Debug.Log("File Deleted");
             }
         }
+    }
+
+    private IEnumerator startupDialogs()
+    {
+        UIManager.Instance.showPowerup("Use W A S D or left stick to move");
+        yield return new WaitForSeconds(6f);
+        UIManager.Instance.showPowerup("Use Space, K or the A button to jump");
     }
 
     public void LoadGame()
@@ -86,6 +102,7 @@ public class GameDataManager : MonoBehaviour
         BossMain.instance.setBossAliveState(bossIsAlive);
         GameManager.Instance.mainPlayer.setPresents(save.presentsCollected);
         GameManager.Instance.mainPlayer.setPlayerHealthMax(save.playerMaxHealth, true);
+        UIManager.Instance.shakePresentPanel();
     }
 
     private void givePlayerPowers(GameData save)

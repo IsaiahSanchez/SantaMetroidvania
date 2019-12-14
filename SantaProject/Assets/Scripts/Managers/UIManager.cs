@@ -15,6 +15,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image dash;
     [SerializeField] private Image doubleJump;
     [SerializeField] private Image Snowball;
+    [SerializeField] private Animator popupAnim;
+    [SerializeField] private Animator PresentPickupAnim;
 
     // Start is called before the first frame update
     void Awake()
@@ -23,8 +25,10 @@ public class UIManager : MonoBehaviour
         {
             Destroy(Instance);
         }
-
-        Instance = this;
+        else
+        {
+            Instance = this;
+        }
 
         updatePresentText(0);
         //if (Instance == null)
@@ -89,16 +93,24 @@ public class UIManager : MonoBehaviour
         Snowball.color = new Vector4(.75f, .75f, .75f, .5f);
     }
 
+    public void shakePresentPanel()
+    {
+        PresentPickupAnim.ResetTrigger("Shake");
+        PresentPickupAnim.SetTrigger("Shake");
+    }
+
     public void showPowerup(string nameAndHowToUse)
     {
-        PowerUpPopup.gameObject.SetActive(true);
+        popupAnim.ResetTrigger("In");
+        popupAnim.SetTrigger("In");
         PowerUpPopup.text = nameAndHowToUse;
         StartCoroutine(waitToDisablePowerUpPopup());
     }
 
     private IEnumerator waitToDisablePowerUpPopup()
     {
-        yield return new WaitForSeconds(5f);
-        PowerUpPopup.gameObject.SetActive(false);
+        yield return new WaitForSeconds(4f);
+        popupAnim.ResetTrigger("Out");
+        popupAnim.SetTrigger("Out");
     }
 }

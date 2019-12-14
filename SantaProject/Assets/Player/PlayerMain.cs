@@ -39,7 +39,7 @@ public class PlayerMain : MonoBehaviour
     void Start()
     {
         UIManager.Instance.updatePlayerHealthText(health, maxPlayerHealth);
-        UIManager.Instance.showPowerup("WASD or Arrow Keys to move, K or Space to jump");
+
         if (hasDoubleJumpPower == true)
         {
             hasDoubleJumpPower = false;
@@ -87,7 +87,7 @@ public class PlayerMain : MonoBehaviour
             case 1:
                 if (hasDashPower == false)
                 {
-                    nameAndDescription = "You have gained the Dash power, press O to dash the direction you are aiming with WASD!";
+                    nameAndDescription = "You have gained the Dash power, press O or B on controller to dash the direction you are moving";
                     UIManager.Instance.hasDash();
                     hasDashPower = true;
                 }
@@ -95,7 +95,7 @@ public class PlayerMain : MonoBehaviour
             case 2:
                 if(hasSnowBallPower == false)
                 {
-                    nameAndDescription = "You have gained the Snow Ball Teleport power, press J to throw a snowball that will teleport you to where it lands!";
+                    nameAndDescription = "You have gained the Snow Ball Teleport power, press J or Y on controller to throw a snowball that will teleport you to where it lands!";
                     UIManager.Instance.hasSnowball();
                     hasSnowBallPower = true;
                 }
@@ -238,6 +238,7 @@ public class PlayerMain : MonoBehaviour
         numberOfPresentsCollected++;
         CameraShake.instance.addLittleShake();
         UIManager.Instance.updatePresentText(numberOfPresentsCollected);
+        UIManager.Instance.shakePresentPanel();
         AudioManager.instance.PlaySound("PresentCollect");
     }
 

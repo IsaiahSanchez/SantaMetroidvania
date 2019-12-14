@@ -78,11 +78,6 @@ public class PlayerMovement : MonoBehaviour
                             MovementDirection = -1;
                         }
 
-                        if (Mathf.Abs(inputDirection.x) > .25f)
-                        {
-                            MovementDirection = inputDirection.x;
-                        }
-
                         myBody.velocity = new Vector2((MovementDirection * WalkSpeed * 100f) * Time.deltaTime, myBody.velocity.y);
                     }
                 }
@@ -279,7 +274,7 @@ public class PlayerMovement : MonoBehaviour
         Instantiate(teleportParticle, new Vector2(transform.position.x, transform.position.y - .5f), Quaternion.identity);
         transform.position = SnowBallHitLocation + new Vector2(0,.75f);
         Instantiate(teleportParticle, new Vector2(transform.position.x,transform.position.y-.5f), Quaternion.identity);
-        playerAnimator.SetBool("IsJumping", false);
+        //playerAnimator.SetBool("IsJumping", false);
         UIManager.Instance.setSnowballActive();
     }
 
