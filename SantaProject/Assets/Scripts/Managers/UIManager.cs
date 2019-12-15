@@ -17,6 +17,9 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image Snowball;
     [SerializeField] private Animator popupAnim;
     [SerializeField] private Animator PresentPickupAnim;
+    [SerializeField] private Coroutine currentWait;
+
+    private string nextInfo;
 
     // Start is called before the first frame update
     void Awake()
@@ -101,10 +104,18 @@ public class UIManager : MonoBehaviour
 
     public void showPowerup(string nameAndHowToUse)
     {
-        popupAnim.ResetTrigger("In");
-        popupAnim.SetTrigger("In");
-        PowerUpPopup.text = nameAndHowToUse;
-        StartCoroutine(waitToDisablePowerUpPopup());
+        if (currentWait != null)
+        {
+            nextInfo = nameAndHowToUse;
+        }
+        else
+        {
+            nextInfo = null;
+            popupAnim.ResetTrigger("In");
+            popupAnim.SetTrigger("In");
+            PowerUpPopup.text = nameAndHowToUse;
+            currentWait = StartCoroutine(waitToDisablePowerUpPopup());
+        }
     }
 
     private IEnumerator waitToDisablePowerUpPopup()
@@ -112,5 +123,16 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(4f);
         popupAnim.ResetTrigger("Out");
         popupAnim.SetTrigger("Out");
+        if (nextInfo != null)
+        {
+            StartCoroutine(waitTilFinished());
+        }
+        currentWait = null;
+    }
+
+    private IEnumerator waitTilFinished()
+    {
+        yield return new WaitForSeconds(1f);
+        showPowerup(nextInfo);
     }
 }

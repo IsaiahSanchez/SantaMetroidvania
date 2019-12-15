@@ -272,6 +272,7 @@ public class PlayerMovement : MonoBehaviour
         currentTeleportWait = StartCoroutine(waitAfterTeleport(.1f));
         myBody.velocity = Vector2.zero;
         Instantiate(teleportParticle, new Vector2(transform.position.x, transform.position.y - .5f), Quaternion.identity);
+        AudioManager.instance.PlaySound("Teleport");
         transform.position = SnowBallHitLocation + new Vector2(0,.75f);
         Instantiate(teleportParticle, new Vector2(transform.position.x,transform.position.y-.5f), Quaternion.identity);
         //playerAnimator.SetBool("IsJumping", false);

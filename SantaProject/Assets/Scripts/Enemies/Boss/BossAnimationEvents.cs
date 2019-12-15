@@ -28,7 +28,17 @@ public class BossAnimationEvents : MonoBehaviour
     public void shakeScreen()
     {
         CameraShake.instance.addBigShake();
+        playThud();
     }
 
+    public void playScream()
+    {
+        AudioManager.instance.PlaySound("BossShout");
+    }
+
+    private void playThud()
+    {
+        AudioManager.instance.PlaySound("BossSlam");
+    }
 
 }

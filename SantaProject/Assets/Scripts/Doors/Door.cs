@@ -38,6 +38,10 @@ public class Door : MonoBehaviour
         if (currentAimPosition != new Vector2(openPosition.position.x, openPosition.position.y))
         {
             currentAimPosition = openPosition.position;
+            if (transform.position.y > currentAimPosition.y - .05f && transform.position.y <= currentAimPosition.y + .05f)
+            {
+                AudioManager.instance.PlaySound("Door");
+            }
             isAtIntendedPosition = false;
         }
     }
@@ -47,6 +51,10 @@ public class Door : MonoBehaviour
         if (currentAimPosition != new Vector2(closedPosition.position.x, closedPosition.position.y))
         {
             currentAimPosition = closedPosition.position;
+            if (!(transform.position.y > currentAimPosition.y - .05f && transform.position.y <= currentAimPosition.y + .05f))
+            {
+                AudioManager.instance.PlaySound("Door");
+            }
             isAtIntendedPosition = false;
         }
     }

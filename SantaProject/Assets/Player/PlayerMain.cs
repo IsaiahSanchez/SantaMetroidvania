@@ -78,7 +78,7 @@ public class PlayerMain : MonoBehaviour
             case 0:
                 if (hasDoubleJumpPower == false)
                 {
-                    nameAndDescription = "You have gained the Double Jump power, press Jump a second time while in mid air to jump a second time!";
+                    nameAndDescription = "Press Jump a second time while in mid air to jump a second time!";
                     hasDoubleJumpPower = true;
                     UIManager.Instance.hasDoubleJump();
                     myMovement.notifyOfDoubleJumpGet();
@@ -87,7 +87,7 @@ public class PlayerMain : MonoBehaviour
             case 1:
                 if (hasDashPower == false)
                 {
-                    nameAndDescription = "You have gained the Dash power, press O or B on controller to dash the direction you are moving";
+                    nameAndDescription = "Press O or B on controller to dash the direction you are moving";
                     UIManager.Instance.hasDash();
                     hasDashPower = true;
                 }
@@ -95,7 +95,7 @@ public class PlayerMain : MonoBehaviour
             case 2:
                 if(hasSnowBallPower == false)
                 {
-                    nameAndDescription = "You have gained the Snow Ball Teleport power, press J or Y on controller to throw a snowball that will teleport you to where it lands!";
+                    nameAndDescription = "press J or X on controller to throw a Teleporter Snowball";
                     UIManager.Instance.hasSnowball();
                     hasSnowBallPower = true;
                 }
@@ -141,6 +141,7 @@ public class PlayerMain : MonoBehaviour
 
     public void actuallyThrow()
     {
+        AudioManager.instance.PlaySound("Throw");
         currentSnowball.gameObject.SetActive(true);
         //move it relative right
         currentSnowball.init(this, snowballThrowLocation.right, SnowBallThrowSpeed);
@@ -187,6 +188,7 @@ public class PlayerMain : MonoBehaviour
             if (canTakeDamage == true)
             {
                 health -= amount;
+                AudioManager.instance.PlaySound("PlayerHit");
                 UIManager.Instance.updatePlayerHealthText(health, maxPlayerHealth);
                 CameraShake.instance.addBigShake();
                 //knockback  need to create function in playermovement script.

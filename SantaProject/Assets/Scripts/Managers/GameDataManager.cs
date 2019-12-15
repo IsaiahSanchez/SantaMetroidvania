@@ -46,9 +46,12 @@ public class GameDataManager : MonoBehaviour
 
     private void Start()
     {
-        if (!(File.Exists(Application.persistentDataPath + "/gamesave.save")))
+        if (SceneManager.GetActiveScene().buildIndex == 1)
         {
-            StartCoroutine(startupDialogs());
+            if (!(File.Exists(Application.persistentDataPath + "/gamesave.save")))
+            {
+                StartCoroutine(startupDialogs());
+            }
         }
     }
 
@@ -56,11 +59,28 @@ public class GameDataManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.T))
         {
-            if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
-            {
-                File.Delete(Application.persistentDataPath + "/gamesave.save");
-                Debug.Log("File Deleted");
-            }
+            deleteFile();
+        }
+    }
+
+    public bool doesFileExist()
+    {
+        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void deleteFile()
+    {
+        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        {
+            File.Delete(Application.persistentDataPath + "/gamesave.save");
+            Debug.Log("File Deleted");
         }
     }
 
@@ -143,8 +163,8 @@ public class GameDataManager : MonoBehaviour
 
         //saving all of the player information
         saveData.playerDash = GameManager.Instance.mainPlayer.hasDashPower;
-        saveData.playerDoubleJump = GameManager.Instance.mainPlayer.hasDashPower;
-        saveData.playerSnowball = GameManager.Instance.mainPlayer.hasDashPower;
+        saveData.playerDoubleJump = GameManager.Instance.mainPlayer.hasDoubleJumpPower;
+        saveData.playerSnowball = GameManager.Instance.mainPlayer.hasSnowBallPower;
         saveData.playerMaxHealth = GameManager.Instance.mainPlayer.maxPlayerHealth;
         saveData.presentsCollected = GameManager.Instance.mainPlayer.numberOfPresentsCollected;
         saveData.xSpawn = PlayerSpawnLocation.x;

@@ -101,6 +101,7 @@ public class BatEnemy : Enemy
             StopCoroutine(currentMovementRoutine);
         }
         currentBatState = BatStates.chasing;
+        AudioManager.instance.PlaySound("Bat");
         stateHasChanged = true;
     }
 
@@ -131,6 +132,7 @@ public class BatEnemy : Enemy
             StopCoroutine(currentMovementRoutine);
         }
         currentBatState = BatStates.sleeping;
+        AudioManager.instance.PlaySound("BatDeath");
         stateHasChanged = true;
         myBody.gravityScale = 2.5f;
         //change physical hit box to not interact with player

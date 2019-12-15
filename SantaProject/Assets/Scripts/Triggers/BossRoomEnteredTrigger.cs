@@ -18,6 +18,7 @@ public class BossRoomEnteredTrigger : Trigger
             if (boss.bossState != BossMain.bossStates.dead)
             {
                 boss.bossState = BossMain.bossStates.bossRoomEntered;
+                AudioManager.instance.PlaySound("BossShout");
                 hasBeenTriggered = true;
                 bossRoomDoor.closeDoor();
             }

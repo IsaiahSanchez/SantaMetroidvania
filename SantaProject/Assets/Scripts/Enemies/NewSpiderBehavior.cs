@@ -189,6 +189,8 @@ public class NewSpiderBehavior : Enemy
         //disable weakPoint
         WeakPointRef.SetActive(false);
 
+        AudioManager.instance.PlaySound("SpiderDeath");
+
         //play animation of dying
         myAnimator.ResetTrigger("TriggerDeath");
         myAnimator.SetTrigger("TriggerDeath");
@@ -198,6 +200,7 @@ public class NewSpiderBehavior : Enemy
     public override void playerSeen()
     {
         currentState = spiderState.Chasing;
+        AudioManager.instance.PlaySound("Spider");
     }
 
     public override void playerLost()
