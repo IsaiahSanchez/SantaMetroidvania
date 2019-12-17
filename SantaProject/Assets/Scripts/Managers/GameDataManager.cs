@@ -158,7 +158,6 @@ public class GameDataManager : MonoBehaviour
             PickupObject currentObject = pickupableObjects[index];
             //split the things apart
             saveData.isCollected[currentObject.ObjID] = currentObject.hasBeenCollected;
-            Debug.Log("One Saved");
         }
 
         //saving all of the player information

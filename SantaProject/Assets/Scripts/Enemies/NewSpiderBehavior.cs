@@ -82,22 +82,22 @@ public class NewSpiderBehavior : Enemy
 
     private void changeSprite()
     {
-        if (GameManager.Instance.arachnaephobiaModeEnabled == true)
-        {
-            if (isArachnaephobiaMode != GameManager.Instance.arachnaephobiaModeEnabled)
-            {
-                mySprite.sprite = arachnaephobiaSprite;
-                isArachnaephobiaMode = GameManager.Instance.arachnaephobiaModeEnabled;
-            }
-        }
-        else
-        {
-            if (isArachnaephobiaMode != GameManager.Instance.arachnaephobiaModeEnabled)
-            {
-                mySprite.sprite = arachnaephobiaSprite;
-                isArachnaephobiaMode = GameManager.Instance.arachnaephobiaModeEnabled;
-            }
-        }
+        //if (GameManager.Instance.arachnaephobiaModeEnabled == true)
+        //{
+        //    if (isArachnaephobiaMode != GameManager.Instance.arachnaephobiaModeEnabled)
+        //    {
+        //        mySprite.sprite = arachnaephobiaSprite;
+        //        isArachnaephobiaMode = GameManager.Instance.arachnaephobiaModeEnabled;
+        //    }
+        //}
+        //else
+        //{
+        //    if (isArachnaephobiaMode != GameManager.Instance.arachnaephobiaModeEnabled)
+        //    {
+        //        mySprite.sprite = arachnaephobiaSprite;
+        //        isArachnaephobiaMode = GameManager.Instance.arachnaephobiaModeEnabled;
+        //    }
+        //}
     }
 
     private void handleFacingDirection()
@@ -192,8 +192,8 @@ public class NewSpiderBehavior : Enemy
         AudioManager.instance.PlaySound("SpiderDeath");
 
         //play animation of dying
-        myAnimator.ResetTrigger("TriggerDeath");
-        myAnimator.SetTrigger("TriggerDeath");
+        //myAnimator.ResetTrigger("TriggerDeath");
+        //myAnimator.SetTrigger("TriggerDeath");
         base.die();
     }
 

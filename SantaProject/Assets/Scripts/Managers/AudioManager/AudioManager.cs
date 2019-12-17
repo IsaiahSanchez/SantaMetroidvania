@@ -57,7 +57,7 @@ public class AudioManager : MonoBehaviour
                 }
                 else
                 {
-                    speaker.PlayOneShot(soundLists[index].sounds[0].clip, speaker.volume);s
+                    speaker.PlayOneShot(soundLists[index].sounds[0].clip, speaker.volume);
                     //list.sounds[0].source.PlayOneShot(list.sounds[0].clip);
                 }
             }
