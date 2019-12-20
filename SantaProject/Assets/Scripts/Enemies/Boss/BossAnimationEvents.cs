@@ -6,6 +6,7 @@ public class BossAnimationEvents : MonoBehaviour
 {
     [SerializeField] private BossMain boss;
     [SerializeField] private GameObject damageBox;
+    [SerializeField] private GameObject HitBox;
 
     public void readyToAttack()
     {
@@ -17,6 +18,7 @@ public class BossAnimationEvents : MonoBehaviour
         if (boss.bossState != BossMain.bossStates.dead)
         {
             damageBox.SetActive(true);
+            HitBox.SetActive(false);
         }
     }
 

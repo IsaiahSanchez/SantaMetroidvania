@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class NewSpiderBehavior : Enemy
 {
-    private enum spiderState {Chasing, Roaming, Dead}
+    public enum spiderState {Chasing, Roaming, Dead}
 
     [SerializeField] private float amountToWaitBeforeRoamChecking = 2f;
     [SerializeField] private float MovementSpeed = 10f;
     [SerializeField] private GameObject damageBoxRef, playerDetectorRef, WeakPointRef;
     [SerializeField] private Sprite defaultSprite, arachnaephobiaSprite;
     [SerializeField] private SpriteRenderer mySprite;
+    [SerializeField] private Animator anim;
 
     private EnemyFacingHandler myFacing;
-    private Animator myAnimator;
-    private spiderState currentState = spiderState.Roaming;
+    public spiderState currentState = spiderState.Roaming;
     private int CurrentDirection = 1;
     private bool foundEdge = false, foundWall = false, isImpeded = false, hasChanged = false;
     private float MaxMovementSpeed;
@@ -22,20 +22,10 @@ public class NewSpiderBehavior : Enemy
 
     private void Awake()
     {
-        myAnimator = GetComponent<Animator>();
         myBody = GetComponent<Rigidbody2D>();
         myFacing = GetComponent<EnemyFacingHandler>();
         MaxMovementSpeed = MovementSpeed;
 
-    }
-
-    private void OnEnable()
-    {
-        if (currentState == spiderState.Dead)
-        {
-            myAnimator.ResetTrigger("TriggerDeath");
-            myAnimator.SetTrigger("TriggerDeath");
-        }
     }
 
     private void Start()
@@ -180,6 +170,8 @@ public class NewSpiderBehavior : Enemy
     protected override void die()
     {
         currentState = spiderState.Dead;
+        anim.ResetTrigger("Die");
+        anim.SetTrigger("Die");
         //change physical hit box to not interact with player
         gameObject.layer = 16;
         //disable damaging box

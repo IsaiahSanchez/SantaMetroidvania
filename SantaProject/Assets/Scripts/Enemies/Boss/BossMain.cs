@@ -12,6 +12,7 @@ public class BossMain : Enemy
     [SerializeField] private GameObject myDamageBox;
     [SerializeField] private GameObject bloodParticle;
     [SerializeField] private Door bossRoomDoor;
+    [SerializeField] private GameObject headHurtBox;
 
     public enum bossStates {offScreen, bossRoomEntered, active, dead}
     public bossStates bossState = bossStates.offScreen;
@@ -76,6 +77,7 @@ public class BossMain : Enemy
         if (bossState == bossStates.active)
         {
             myDamageBox.SetActive(false);
+            headHurtBox.SetActive(true);
             int rand = Random.Range(0, animations.Count);
             anim.ResetTrigger(animations[rand]);
             anim.SetTrigger(animations[rand]);
@@ -84,7 +86,7 @@ public class BossMain : Enemy
 
     public override void damageEnemy()
     {
-        AudioManager.instance.PlaySound("EnemyDeath");
+        AudioManager.instance.PlaySound("BossShout");
         CameraShake.instance.addLittleShake();
         Instantiate(bloodParticle, new Vector2(transform.position.x, transform.position.y+2f), Quaternion.identity);
         myDamageBox.SetActive(false);
