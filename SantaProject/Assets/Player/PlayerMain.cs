@@ -12,6 +12,8 @@ public class PlayerMain : MonoBehaviour
     [SerializeField] private float timeAfterTeleportToEnableThrowing;
     [SerializeField] private Animator anim;
 
+    [SerializeField] private List<SpriteRenderer> sprites = new List<SpriteRenderer>();
+
     private bool canThrowSnowball = true;
     private Coroutine mainWaitCoroutine;
     private SnowBall currentSnowball;
@@ -21,6 +23,7 @@ public class PlayerMain : MonoBehaviour
     public bool hasDoubleJumpPower = false;
     public bool hasDashPower = false;
     public bool hasSnowBallPower = false;
+    public bool isDead = false;
     public int numberOfPresentsCollected = 0;
     public bool canTakeDamage = true;
 
@@ -28,15 +31,15 @@ public class PlayerMain : MonoBehaviour
 
     private void Awake()
     {
-       
+        health = maxPlayerHealth;
         myMovement = GetComponent<PlayerMovement>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        UIManager.Instance.updatePlayerHealthText(health);
-        UIManager.Instance.showPowerup("WASD or Arrow Keys to move, K or Space to jump");
+        UIManager.Instance.updatePlayerHealthText(health, maxPlayerHealth);
+
         if (hasDoubleJumpPower == true)
         {
             hasDoubleJumpPower = false;
@@ -56,21 +59,6 @@ public class PlayerMain : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (canThrowSnowball == true)
-        {
-            if (Input.GetKeyDown(KeyCode.J) || Input.GetKeyDown(KeyCode.Return))
-            {
-                if (hasSnowBallPower == true)
-                {
-                    throwSnowball();
-                }
-            }
-        }
-    }
-
     public void setPlayerHealthMax(float maxHealth, bool shouldUpdateMaxHealth)
     {
         if (shouldUpdateMaxHealth == true)
@@ -79,7 +67,7 @@ public class PlayerMain : MonoBehaviour
         }
 
         health = maxPlayerHealth;
-        UIManager.Instance.updatePlayerHealthText(health);
+        UIManager.Instance.updatePlayerHealthText(health, maxPlayerHealth);
     }
 
     public void givePower(int powerIndex, bool shouldShowText)
@@ -90,22 +78,25 @@ public class PlayerMain : MonoBehaviour
             case 0:
                 if (hasDoubleJumpPower == false)
                 {
-                    nameAndDescription = "You have gained the Double Jump power, press Jump a second time while in mid air to jump a second time!";
+                    nameAndDescription = "Press Jump a second time while in mid air to jump a second time!";
                     hasDoubleJumpPower = true;
+                    UIManager.Instance.hasDoubleJump();
                     myMovement.notifyOfDoubleJumpGet();
                 }
                 break;
             case 1:
                 if (hasDashPower == false)
                 {
-                    nameAndDescription = "You have gained the Dash power, press O to dash the direction you are aiming with WASD!";
+                    nameAndDescription = "Press O or B on controller to dash the direction you are moving";
+                    UIManager.Instance.hasDash();
                     hasDashPower = true;
                 }
                 break;
             case 2:
                 if(hasSnowBallPower == false)
                 {
-                    nameAndDescription = "You have gained the Snow Ball Teleport power, press J to throw a snowball that will teleport you to where it lands!";
+                    nameAndDescription = "press J or X on controller to throw a Teleporter Snowball";
+                    UIManager.Instance.hasSnowball();
                     hasSnowBallPower = true;
                 }
                 break;
@@ -144,11 +135,13 @@ public class PlayerMain : MonoBehaviour
             currentSnowball.transform.parent = snowballThrowLocation;
         }
         anim.SetTrigger("ThrowSnowball");
+        UIManager.Instance.setSnowballInactive();
 
     }
 
     public void actuallyThrow()
     {
+        AudioManager.instance.PlaySound("Throw");
         currentSnowball.gameObject.SetActive(true);
         //move it relative right
         currentSnowball.init(this, snowballThrowLocation.right, SnowBallThrowSpeed);
@@ -190,19 +183,50 @@ public class PlayerMain : MonoBehaviour
 
     public void TakeDamage(float amount, int direction)
     {
-        if (canTakeDamage == true)
+        if (isDead == false)
         {
-            health -= amount;
-            UIManager.Instance.updatePlayerHealthText(health);
-            //knockback  need to create function in playermovement script.
-            myMovement.getKnockedBack(direction);
-            AudioManager.instance.PlaySound("PlayerHurt");
+            if (canTakeDamage == true)
+            {
+                health -= amount;
+                AudioManager.instance.PlaySound("PlayerHit");
+                UIManager.Instance.updatePlayerHealthText(health, maxPlayerHealth);
+                CameraShake.instance.addBigShake();
+                //knockback  need to create function in playermovement script.
+                myMovement.getKnockedBack(direction);
+                AudioManager.instance.PlaySound("PlayerHurt");
+                StartCoroutine(flashWait());
+            }
+            if (health <= 0)
+            {
+                //die
+                isDead = true;
+                anim.ResetTrigger("Die");
+                anim.SetTrigger("Die");
+                GameManager.Instance.StartGameOver();
+                //StartCoroutine(waitForGameOver());
+            }
         }
-        if (health <= 0)
+    }
+
+    private IEnumerator flashWait()
+    {
+        foreach (SpriteRenderer sprite in sprites)
         {
-            //die
-            GameManager.Instance.StartGameOver();
+            sprite.color = new Vector4(1, 0, 0, 1);
         }
+
+        yield return new WaitForSeconds(.2f);
+
+        foreach (SpriteRenderer sprite in sprites)
+        {
+            sprite.color = new Vector4(1, 1, 1, 1);
+        }
+    }
+
+    private IEnumerator waitForGameOver()
+    {
+        yield return new WaitForSeconds(3f);
+        GameManager.Instance.StartGameOver();
     }
 
     public void setPresents(int number)
@@ -214,7 +238,9 @@ public class PlayerMain : MonoBehaviour
     public void collectPresent()
     {
         numberOfPresentsCollected++;
+        CameraShake.instance.addLittleShake();
         UIManager.Instance.updatePresentText(numberOfPresentsCollected);
+        UIManager.Instance.shakePresentPanel();
         AudioManager.instance.PlaySound("PresentCollect");
     }
 

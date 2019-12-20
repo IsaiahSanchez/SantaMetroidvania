@@ -8,8 +8,7 @@ public class Door : MonoBehaviour
     [SerializeField] private bool isOpening;
     [SerializeField] private float speed = 10f;
 
-    private bool isAtIntendedPosition = true;
-    private float timeToOpen = 1f;
+    protected bool isAtIntendedPosition = true;
     private Vector2 currentAimPosition = Vector2.zero;
     private Rigidbody2D myBody;
 
@@ -18,12 +17,7 @@ public class Door : MonoBehaviour
         myBody = GetComponent<Rigidbody2D>();
     }
 
-    private void Start()
-    {
-        
-    }
-
-    private void Update()
+    protected virtual void Update()
     {
         if (isAtIntendedPosition == false)
         {
@@ -44,6 +38,10 @@ public class Door : MonoBehaviour
         if (currentAimPosition != new Vector2(openPosition.position.x, openPosition.position.y))
         {
             currentAimPosition = openPosition.position;
+            if (transform.position.y > currentAimPosition.y - .05f && transform.position.y <= currentAimPosition.y + .05f)
+            {
+                AudioManager.instance.PlaySound("Door");
+            }
             isAtIntendedPosition = false;
         }
     }
@@ -53,6 +51,10 @@ public class Door : MonoBehaviour
         if (currentAimPosition != new Vector2(closedPosition.position.x, closedPosition.position.y))
         {
             currentAimPosition = closedPosition.position;
+            if (!(transform.position.y > currentAimPosition.y - .05f && transform.position.y <= currentAimPosition.y + .05f))
+            {
+                AudioManager.instance.PlaySound("Door");
+            }
             isAtIntendedPosition = false;
         }
     }

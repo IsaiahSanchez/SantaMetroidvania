@@ -45,7 +45,6 @@ public class FeetTrigger : MonoBehaviour
         {
             myMovement.hasLanded();
         }
-        Debug.Log(isTouchingGround);
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -57,7 +56,7 @@ public class FeetTrigger : MonoBehaviour
             {
                 myMovement.fallOffLedge();
             }
-            Debug.Log(isTouchingGround);
+
         }
     }
 }

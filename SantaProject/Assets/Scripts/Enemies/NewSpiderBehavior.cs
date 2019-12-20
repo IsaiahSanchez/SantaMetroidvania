@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class NewSpiderBehavior : Enemy
 {
-    private enum spiderState {Chasing, Roaming, Dead}
+    public enum spiderState {Chasing, Roaming, Dead}
 
     [SerializeField] private float amountToWaitBeforeRoamChecking = 2f;
     [SerializeField] private float MovementSpeed = 10f;
     [SerializeField] private GameObject damageBoxRef, playerDetectorRef, WeakPointRef;
     [SerializeField] private Sprite defaultSprite, arachnaephobiaSprite;
     [SerializeField] private SpriteRenderer mySprite;
+    [SerializeField] private Animator anim;
 
     private EnemyFacingHandler myFacing;
-    private Animator myAnimator;
-    private spiderState currentState = spiderState.Roaming;
+    public spiderState currentState = spiderState.Roaming;
     private int CurrentDirection = 1;
     private bool foundEdge = false, foundWall = false, isImpeded = false, hasChanged = false;
     private float MaxMovementSpeed;
@@ -22,20 +22,10 @@ public class NewSpiderBehavior : Enemy
 
     private void Awake()
     {
-        myAnimator = GetComponent<Animator>();
         myBody = GetComponent<Rigidbody2D>();
         myFacing = GetComponent<EnemyFacingHandler>();
         MaxMovementSpeed = MovementSpeed;
 
-    }
-
-    private void OnEnable()
-    {
-        if (currentState == spiderState.Dead)
-        {
-            myAnimator.ResetTrigger("TriggerDeath");
-            myAnimator.SetTrigger("TriggerDeath");
-        }
     }
 
     private void Start()
@@ -82,22 +72,22 @@ public class NewSpiderBehavior : Enemy
 
     private void changeSprite()
     {
-        if (GameManager.Instance.arachnaephobiaModeEnabled == true)
-        {
-            if (isArachnaephobiaMode != GameManager.Instance.arachnaephobiaModeEnabled)
-            {
-                mySprite.sprite = arachnaephobiaSprite;
-                isArachnaephobiaMode = GameManager.Instance.arachnaephobiaModeEnabled;
-            }
-        }
-        else
-        {
-            if (isArachnaephobiaMode != GameManager.Instance.arachnaephobiaModeEnabled)
-            {
-                mySprite.sprite = arachnaephobiaSprite;
-                isArachnaephobiaMode = GameManager.Instance.arachnaephobiaModeEnabled;
-            }
-        }
+        //if (GameManager.Instance.arachnaephobiaModeEnabled == true)
+        //{
+        //    if (isArachnaephobiaMode != GameManager.Instance.arachnaephobiaModeEnabled)
+        //    {
+        //        mySprite.sprite = arachnaephobiaSprite;
+        //        isArachnaephobiaMode = GameManager.Instance.arachnaephobiaModeEnabled;
+        //    }
+        //}
+        //else
+        //{
+        //    if (isArachnaephobiaMode != GameManager.Instance.arachnaephobiaModeEnabled)
+        //    {
+        //        mySprite.sprite = arachnaephobiaSprite;
+        //        isArachnaephobiaMode = GameManager.Instance.arachnaephobiaModeEnabled;
+        //    }
+        //}
     }
 
     private void handleFacingDirection()
@@ -168,18 +158,20 @@ public class NewSpiderBehavior : Enemy
         StartCoroutine(roamingDirectionChanger());
     }
 
-    public override void damageEnemy()
-    {
-        hitPoints--;
-        if (hitPoints <= 0)
-        {
-            die();
-        }
-    }
+    //public override void damageEnemy()
+    //{
+    //    hitPoints--;
+    //    if (hitPoints <= 0)
+    //    {
+    //        die();
+    //    }
+    //}
 
     protected override void die()
     {
         currentState = spiderState.Dead;
+        anim.ResetTrigger("Die");
+        anim.SetTrigger("Die");
         //change physical hit box to not interact with player
         gameObject.layer = 16;
         //disable damaging box
@@ -189,15 +181,18 @@ public class NewSpiderBehavior : Enemy
         //disable weakPoint
         WeakPointRef.SetActive(false);
 
+        AudioManager.instance.PlaySound("SpiderDeath");
+
         //play animation of dying
-        myAnimator.ResetTrigger("TriggerDeath");
-        myAnimator.SetTrigger("TriggerDeath");
+        //myAnimator.ResetTrigger("TriggerDeath");
+        //myAnimator.SetTrigger("TriggerDeath");
         base.die();
     }
 
     public override void playerSeen()
     {
         currentState = spiderState.Chasing;
+        AudioManager.instance.PlaySound("Spider");
     }
 
     public override void playerLost()

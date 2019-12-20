@@ -11,6 +11,7 @@ public class GameDataManager : MonoBehaviour
 
     public PickupObject[] pickupableObjects = new PickupObject[150];
     public int size = 34;
+    public bool bossIsAlive = true;
 
     private void Awake()
     {
@@ -40,23 +41,54 @@ public class GameDataManager : MonoBehaviour
                 LoadGame();
             }
         }
+
+    }
+
+    private void Start()
+    {
+        if (SceneManager.GetActiveScene().buildIndex == 1)
+        {
+            if (!(File.Exists(Application.persistentDataPath + "/gamesave.save")))
+            {
+                StartCoroutine(startupDialogs());
+            }
+        }
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            saveGame(Vector2.zero);
-        }
-
         if (Input.GetKeyDown(KeyCode.T))
         {
-            if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
-            {
-                File.Delete(Application.persistentDataPath + "/gamesave.save");
-                Debug.Log("File Deleted");
-            }
+            deleteFile();
         }
+    }
+
+    public bool doesFileExist()
+    {
+        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public void deleteFile()
+    {
+        if (File.Exists(Application.persistentDataPath + "/gamesave.save"))
+        {
+            File.Delete(Application.persistentDataPath + "/gamesave.save");
+            Debug.Log("File Deleted");
+        }
+    }
+
+    private IEnumerator startupDialogs()
+    {
+        UIManager.Instance.showPowerup("Use W A S D or left stick to move");
+        yield return new WaitForSeconds(6f);
+        UIManager.Instance.showPowerup("Use Space, K or the A button to jump");
     }
 
     public void LoadGame()
@@ -78,6 +110,7 @@ public class GameDataManager : MonoBehaviour
             }
         }
 
+        bossIsAlive = saveData.BossIsAlive;
         StartCoroutine(playerChanges(saveData));
     }
 
@@ -86,8 +119,10 @@ public class GameDataManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
         givePlayerPowers(save);
         changePlayerSpawnLocation(save);
+        BossMain.instance.setBossAliveState(bossIsAlive);
         GameManager.Instance.mainPlayer.setPresents(save.presentsCollected);
         GameManager.Instance.mainPlayer.setPlayerHealthMax(save.playerMaxHealth, true);
+        UIManager.Instance.shakePresentPanel();
     }
 
     private void givePlayerPowers(GameData save)
@@ -123,18 +158,17 @@ public class GameDataManager : MonoBehaviour
             PickupObject currentObject = pickupableObjects[index];
             //split the things apart
             saveData.isCollected[currentObject.ObjID] = currentObject.hasBeenCollected;
-            Debug.Log("One Saved");
         }
 
         //saving all of the player information
         saveData.playerDash = GameManager.Instance.mainPlayer.hasDashPower;
-        saveData.playerDoubleJump = GameManager.Instance.mainPlayer.hasDashPower;
-        saveData.playerSnowball = GameManager.Instance.mainPlayer.hasDashPower;
+        saveData.playerDoubleJump = GameManager.Instance.mainPlayer.hasDoubleJumpPower;
+        saveData.playerSnowball = GameManager.Instance.mainPlayer.hasSnowBallPower;
         saveData.playerMaxHealth = GameManager.Instance.mainPlayer.maxPlayerHealth;
         saveData.presentsCollected = GameManager.Instance.mainPlayer.numberOfPresentsCollected;
         saveData.xSpawn = PlayerSpawnLocation.x;
         saveData.ySpawn = PlayerSpawnLocation.y;
-
+        saveData.BossIsAlive = bossIsAlive;
 
         BinaryFormatter bf = new BinaryFormatter();
         FileStream file = File.Create(Application.persistentDataPath + "/gamesave.save");

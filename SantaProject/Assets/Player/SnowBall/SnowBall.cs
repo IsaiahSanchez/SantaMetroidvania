@@ -30,6 +30,7 @@ public class SnowBall : MonoBehaviour
     {
         if (hitSomethingAlready == false)
         {
+            AudioManager.instance.PlaySound("SnowballHit");
             playerRef.snowBallHasHit(new Vector2(transform.position.x, transform.position.y) - fromWhere);
             hitSomethingAlready = true;
             disableSnowball();

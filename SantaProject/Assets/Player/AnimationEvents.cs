@@ -15,7 +15,7 @@ public class AnimationEvents : MonoBehaviour
     {
         createDust();
         GetComponentInParent<PlayerMain>().KickRock();
-        AudioManager.instance.PlaySound("Footstep");
+        AudioManager.instance.PlaySound("Walk");
     }
 
     public void createDust()
@@ -26,5 +26,10 @@ public class AnimationEvents : MonoBehaviour
     public void destroySelf()
     {
         Destroy(gameObject);
+    }
+
+    public void playUIPopupSound()
+    {
+        AudioManager.instance.PlaySound("UIPopup");
     }
 }

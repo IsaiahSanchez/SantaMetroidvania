@@ -9,12 +9,12 @@ public class Chunk : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         whatEnables.SetActive(true);
-        Debug.Log("Active");
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         whatEnables.SetActive(false);
-        Debug.Log("Deactivated");
+        
     }
 }
