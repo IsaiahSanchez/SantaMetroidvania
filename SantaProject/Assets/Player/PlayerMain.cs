@@ -11,15 +11,17 @@ public class PlayerMain : MonoBehaviour
     [SerializeField] private float SnowBallThrowSpeed;
     [SerializeField] private float timeAfterTeleportToEnableThrowing;
     [SerializeField] private Animator anim;
+    public bool hasStartedThrowingSnowball = false;
 
     [SerializeField] private List<SpriteRenderer> sprites = new List<SpriteRenderer>();
 
+    private bool wantsToThrowSnowball = false;
     private bool canThrowSnowball = true;
     private Coroutine mainWaitCoroutine;
     private SnowBall currentSnowball;
     private float health = 100f;
-    public float maxPlayerHealth = 40f;
 
+    public float maxPlayerHealth = 40f;
     public bool hasDoubleJumpPower = false;
     public bool hasDashPower = false;
     public bool hasSnowBallPower = false;
@@ -56,6 +58,17 @@ public class PlayerMain : MonoBehaviour
         {
             hasSnowBallPower = false;
             givePower(2, false);
+        }
+    }
+
+    private void Update()
+    {
+        if (myMovement.isDashing == false)
+        {
+            if (wantsToThrowSnowball == true)
+            {
+                tryThrowSnowball();
+            }
         }
     }
 
@@ -114,14 +127,22 @@ public class PlayerMain : MonoBehaviour
         {
             if (hasSnowBallPower == true)
             {
-                throwSnowball();
+                if (myMovement.isDashing == false)
+                {
+                    canThrowSnowball = false;
+                    wantsToThrowSnowball = false;
+                    throwSnowball();
+                }
+                else
+                {
+                    wantsToThrowSnowball = true;
+                }
             }
         }
     }
 
     private void throwSnowball()
     {
-        canThrowSnowball = false;
         //spawn snowball
         if (currentSnowball == null)
         {
@@ -134,15 +155,17 @@ public class PlayerMain : MonoBehaviour
             currentSnowball.transform.position = snowballThrowLocation.position;
             currentSnowball.transform.parent = snowballThrowLocation;
         }
+        anim.ResetTrigger("ThrowSnowball");
         anim.SetTrigger("ThrowSnowball");
         UIManager.Instance.setSnowballInactive();
-
+        hasStartedThrowingSnowball = true;
     }
 
     public void actuallyThrow()
     {
         AudioManager.instance.PlaySound("Throw");
         currentSnowball.gameObject.SetActive(true);
+        hasStartedThrowingSnowball = false;
         //move it relative right
         currentSnowball.init(this, snowballThrowLocation.right, SnowBallThrowSpeed);
         //unparent it

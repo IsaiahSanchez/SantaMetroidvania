@@ -6,6 +6,7 @@ public class BossRoomEnteredTrigger : Trigger
 {
     [SerializeField] private BossMain boss;
     [SerializeField] private Door bossRoomDoor;
+    [SerializeField] private GameObject stoppingWall;
     //door to close after player
 
     private bool hasBeenTriggered = false;
@@ -21,7 +22,16 @@ public class BossRoomEnteredTrigger : Trigger
                 AudioManager.instance.PlaySound("BossShout");
                 hasBeenTriggered = true;
                 bossRoomDoor.closeDoor();
+                UIManager.Instance.enableBossHealthBar();
+                StartCoroutine(waitToDisableHitbox());
             }
         }
+    }
+
+    private IEnumerator waitToDisableHitbox()
+    {
+        stoppingWall.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        stoppingWall.SetActive(false);
     }
 }

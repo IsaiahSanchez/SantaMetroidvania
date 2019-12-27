@@ -26,10 +26,10 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            StartGameOver();
-        }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    StartGameOver();
+        //}
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Application.Quit();
@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour
 
     public void StartWin()
     {
+        GameDataManager.instance.saveGame(new Vector2(-1.3f, 8.2f));
         StartCoroutine(coStartWin());
     }
     private IEnumerator coStartWin()

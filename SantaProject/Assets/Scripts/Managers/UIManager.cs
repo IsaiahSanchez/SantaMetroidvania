@@ -9,6 +9,7 @@ public class UIManager : MonoBehaviour
     public static UIManager Instance;
 
     [SerializeField] private TextMeshProUGUI playerHealthText;
+    [SerializeField] private Slider bossHealthBar;
     [SerializeField] private Slider playerHealthSlider;
     [SerializeField] private TextMeshProUGUI PowerUpPopup;
     [SerializeField] private TextMeshProUGUI PresentText;
@@ -42,6 +43,21 @@ public class UIManager : MonoBehaviour
         //{
         //    Destroy(this);
         //}
+    }
+
+    public void enableBossHealthBar()
+    {
+        bossHealthBar.gameObject.SetActive(true);
+    }
+
+    public void disableBossHealthBar()
+    {
+        bossHealthBar.gameObject.SetActive(false);
+    }
+
+    public void updateBossHealthBar(float percentRemaining)
+    {
+        bossHealthBar.value = percentRemaining;
     }
 
     public void updatePresentText(int presents)

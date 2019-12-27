@@ -71,39 +71,39 @@ MonoBehaviour:
     sounds:
     - name: 
       clip: {fileID: 8300000, guid: 1c65b23dac283c5489a7beab3b34876c, type: 3}
-      volume: 0.5
+      volume: 0.4
       pitch: 1
       source: {fileID: 0}
     - name: 
       clip: {fileID: 8300000, guid: 916f4b4120110934f89d7723700f0f23, type: 3}
-      volume: 0.5
+      volume: 0.4
       pitch: 1
       source: {fileID: 0}
     - name: 
       clip: {fileID: 8300000, guid: 1fc5aab971984d745a0bb8954135f5be, type: 3}
-      volume: 0.5
+      volume: 0.4
       pitch: 1
       source: {fileID: 0}
     - name: 
       clip: {fileID: 8300000, guid: 7dc1c0f6c64342048bb7411e96ea9c1b, type: 3}
-      volume: 0.5
+      volume: 0.4
       pitch: 1
       source: {fileID: 0}
     - name: 
       clip: {fileID: 8300000, guid: 4348e8de0b7a3f44b84bc3162102d9f7, type: 3}
-      volume: 0.5
+      volume: 0.4
       pitch: 1
       source: {fileID: 0}
     - name: 
       clip: {fileID: 8300000, guid: 4bce39ca9e52fbe40b81cc2c0c77ab96, type: 3}
-      volume: 0.5
+      volume: 0.4
       pitch: 1
       source: {fileID: 0}
   - name: Dash
     sounds:
     - name: 
       clip: {fileID: 8300000, guid: 3385849638594764bae5ab07477cbc9c, type: 3}
-      volume: 0.928
+      volume: 0.35
       pitch: 1
       source: {fileID: 0}
   - name: Throw
@@ -146,56 +146,56 @@ MonoBehaviour:
     sounds:
     - name: 
       clip: {fileID: 8300000, guid: e61f88275a3c08a4caa7d3315799bc02, type: 3}
-      volume: 0.706
+      volume: 0.35
       pitch: 1
       source: {fileID: 0}
   - name: Teleport
     sounds:
     - name: 
       clip: {fileID: 8300000, guid: a430d2979759b3b4f95a32e999964076, type: 3}
-      volume: 1
+      volume: 0.5
       pitch: 1
       source: {fileID: 0}
   - name: Checkpoint
     sounds:
     - name: 
-      clip: {fileID: 8300000, guid: a5400a26a101a4b46b9276c292707cb4, type: 3}
-      volume: 1
+      clip: {fileID: 8300000, guid: c4c8685fa18929e47a4a7b3bc651a147, type: 3}
+      volume: 0.75
       pitch: 1
       source: {fileID: 0}
   - name: Powerup
     sounds:
     - name: 
-      clip: {fileID: 8300000, guid: 17f06da57161e4d468cf7dfeed9f3a9f, type: 3}
+      clip: {fileID: 8300000, guid: 3fb6402c3c7893845976ad98fd2514da, type: 3}
       volume: 1
       pitch: 1
       source: {fileID: 0}
   - name: Collect
     sounds:
     - name: 
-      clip: {fileID: 8300000, guid: ea3f7bca2cdbf944aa69887c009e52e9, type: 3}
+      clip: {fileID: 8300000, guid: 64e966c0ae4f8f844bc42946a855178a, type: 3}
       volume: 1
       pitch: 1
       source: {fileID: 0}
   - name: Menu1
     sounds:
     - name: 
-      clip: {fileID: 8300000, guid: 43501574ad2ab5540a5f2e90a3281ab3, type: 3}
-      volume: 0.8
+      clip: {fileID: 8300000, guid: 1c787650c59cda7469f998047091a63d, type: 3}
+      volume: 0.75
       pitch: 1
       source: {fileID: 0}
   - name: Menu2
     sounds:
     - name: 
-      clip: {fileID: 8300000, guid: f72cf2e7886c0b84ba3f45ce3529577f, type: 3}
-      volume: 0.8
+      clip: {fileID: 8300000, guid: b6569bb076df1f141ac7f3f0124741f5, type: 3}
+      volume: 1
       pitch: 1
       source: {fileID: 0}
   - name: UIPopup
     sounds:
     - name: 
       clip: {fileID: 8300000, guid: 0a9ebf44682b9bb438e1ade9d1b11b3f, type: 3}
-      volume: 1
+      volume: 0.95
       pitch: 1
       source: {fileID: 0}
   - name: Land
@@ -215,7 +215,7 @@ MonoBehaviour:
   - name: BossShout
     sounds:
     - name: 
-      clip: {fileID: 8300000, guid: 8ab6d05fbc9691945bfe9df86569e78a, type: 3}
+      clip: {fileID: 8300000, guid: 1a66bf9c4d8310c4ebc12bad67f3bacf, type: 3}
       volume: 1
       pitch: 1
       source: {fileID: 0}
@@ -236,12 +236,7 @@ MonoBehaviour:
   - name: PlayerHit
     sounds:
     - name: 
-      clip: {fileID: 8300000, guid: eb798574cba93d2488a627a6a0d66528, type: 3}
-      volume: 1
-      pitch: 1
-      source: {fileID: 0}
-    - name: 
-      clip: {fileID: 8300000, guid: f90845054de1405488b6eed385558042, type: 3}
+      clip: {fileID: 8300000, guid: 5afd5c7fff3a46c49bbbf4d2e33ab234, type: 3}
       volume: 1
       pitch: 1
       source: {fileID: 0}
@@ -254,10 +249,10 @@ AudioSource:
   m_GameObject: {fileID: 3794596047400282353}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 24300002, guid: de625f7f660059e4ca6ce9c6d8ceb062,
+  OutputAudioMixerGroup: {fileID: 2608911442614012513, guid: de625f7f660059e4ca6ce9c6d8ceb062,
     type: 2}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

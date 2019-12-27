@@ -47,7 +47,7 @@ public class AudioManager : MonoBehaviour
         {
             if (soundLists[index].name == soundName)
             {
-                if (soundLists[index].sounds.Count > 0)
+                if (soundLists[index].sounds.Count > 1)
                 {
                     int rand = Random.Range(0, soundLists[index].sounds.Count);
                     speaker.volume = soundLists[index].sounds[rand].volume;
@@ -59,6 +59,7 @@ public class AudioManager : MonoBehaviour
                 {
                     speaker.PlayOneShot(soundLists[index].sounds[0].clip, speaker.volume);
                     //list.sounds[0].source.PlayOneShot(list.sounds[0].clip);
+
                 }
             }
         }

@@ -23,21 +23,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private EchoEffect myDashEcho;
     [SerializeField] private GameObject teleportParticle;
 
+    public bool isDashing = false;
+
     private Rigidbody2D myBody;
     private PlayerMain myPlayer;
-
     private bool canJump = true;
     private bool canMove = true;
     private int numberOfJumps = 0;
     private bool canDash = true;
     private bool isJumping = false;
-    private bool isDashing = false;
     private bool isBeingKnocked = false;
     private Vector2 inputDirection = Vector2.zero;
     private Coroutine currentDashTimer;
     private Coroutine currentTeleportWait;
     private MovementState currentMovementState = MovementState.idle;
-
     private Coroutine currentWaitingForFloor;
 
     // Start is called before the first frame update
@@ -213,7 +212,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (isDashing == false && isBeingKnocked == false)
         {
-            if (myPlayer.hasDashPower == true)
+            if (myPlayer.hasDashPower == true && !(myPlayer.hasStartedThrowingSnowball))
             {
                 if (canDash == true)
                 {

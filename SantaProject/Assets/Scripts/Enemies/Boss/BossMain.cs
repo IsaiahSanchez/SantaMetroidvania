@@ -13,6 +13,7 @@ public class BossMain : Enemy
     [SerializeField] private GameObject bloodParticle;
     [SerializeField] private Door bossRoomDoor;
     [SerializeField] private GameObject headHurtBox;
+    [SerializeField] private GameObject stoppingWall;
 
     public enum bossStates {offScreen, bossRoomEntered, active, dead}
     public bossStates bossState = bossStates.offScreen;
@@ -86,19 +87,22 @@ public class BossMain : Enemy
 
     public override void damageEnemy()
     {
-        AudioManager.instance.PlaySound("BossShout");
-        CameraShake.instance.addLittleShake();
+        CameraShake.instance.addBigShake();
         Instantiate(bloodParticle, new Vector2(transform.position.x, transform.position.y+2f), Quaternion.identity);
         myDamageBox.SetActive(false);
         base.damageEnemy();
+        UIManager.Instance.updateBossHealthBar(hitPoints / 5f);
     }
 
     protected override void die()
     {
+        AudioManager.instance.PlaySound("BossShout");
         CameraShake.instance.addBigShake();
         bossState = bossStates.dead;
         GameDataManager.instance.bossIsAlive = false;
         bossRoomDoor.openDoor();
+        stoppingWall.SetActive(false);
+        UIManager.Instance.disableBossHealthBar();
         base.die();
     }
 }

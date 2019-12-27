@@ -209,6 +209,7 @@ GameObject:
   - component: {fileID: 6822698642442332270}
   - component: {fileID: 917554527813010026}
   - component: {fileID: 9042104468067914039}
+  - component: {fileID: 5566088761330786863}
   m_Layer: 19
   m_Name: VisibleCircle
   m_TagString: Untagged
@@ -261,6 +262,32 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 18
+--- !u!61 &5566088761330786863
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3986429154182555355}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 2.83}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 38, y: 16}
+  m_EdgeRadius: 0
 --- !u!1 &8447191457189044638
 GameObject:
   m_ObjectHideFlags: 0
@@ -650,15 +677,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc2149921932ffa40a2dd59c922e507d, type: 3}
---- !u!1 &9016878101869621038 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7023704788197972816, guid: fc2149921932ffa40a2dd59c922e507d,
-    type: 3}
-  m_PrefabInstance: {fileID: 2043319861835199614}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &935469180474238680 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1197993604230009510, guid: fc2149921932ffa40a2dd59c922e507d,
+    type: 3}
+  m_PrefabInstance: {fileID: 2043319861835199614}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &9016878101869621038 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7023704788197972816, guid: fc2149921932ffa40a2dd59c922e507d,
     type: 3}
   m_PrefabInstance: {fileID: 2043319861835199614}
   m_PrefabAsset: {fileID: 0}
@@ -839,6 +866,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6880141621490660187, guid: 99de5b7de24fa574c8e32b2af610d10e,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -6880141621490660187, guid: 99de5b7de24fa574c8e32b2af610d10e,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.8241262
+      objectReference: {fileID: 0}
+    - target: {fileID: -6880141621490660187, guid: 99de5b7de24fa574c8e32b2af610d10e,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.56640637
+      objectReference: {fileID: 0}
+    - target: {fileID: -6880141621490660187, guid: 99de5b7de24fa574c8e32b2af610d10e,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -111
       objectReference: {fileID: 0}
     - target: {fileID: 8916367081804534704, guid: 99de5b7de24fa574c8e32b2af610d10e,
         type: 3}

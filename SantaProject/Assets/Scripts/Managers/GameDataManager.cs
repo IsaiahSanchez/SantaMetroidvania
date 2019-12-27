@@ -9,12 +9,21 @@ public class GameDataManager : MonoBehaviour
 {
     public static GameDataManager instance;
 
+    private Vector2 firstTimeSpawnPoint = new Vector2(-1.3f, 8.22f);
+    private bool firstTimeLoadingGame = true;
+
+    private int numberOfPresentsCollected = 0;
+
     public PickupObject[] pickupableObjects = new PickupObject[150];
     public int size = 34;
     public bool bossIsAlive = true;
 
     private void Awake()
     {
+        if (PlayerPrefs.HasKey("nop"))
+        {
+            numberOfPresentsCollected = PlayerPrefs.GetInt("nop");
+        }
         if (instance == null)
         {
             instance = this;
@@ -24,9 +33,17 @@ public class GameDataManager : MonoBehaviour
             Destroy(this);
         }
 
+        
+
         //if playing the game
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
+            if (PlayerPrefs.GetInt("ftl") == 0 || PlayerPrefs.HasKey("ftl") == false)
+            {
+                PlayerPrefs.SetInt("ftl", 1);
+                SceneManager.LoadScene(4);
+            }
+
             size = pickupableObjects.Length;
 
             for (int index = 0; index < size; index++)
@@ -40,7 +57,10 @@ public class GameDataManager : MonoBehaviour
                 Debug.Log("File found at : " + Application.persistentDataPath.ToString() + "/gamesave.save" + " Now Loading");
                 LoadGame();
             }
+            
         }
+
+        
 
     }
 
@@ -52,14 +72,20 @@ public class GameDataManager : MonoBehaviour
             {
                 StartCoroutine(startupDialogs());
             }
+            
         }
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        //if (Input.GetKeyDown(KeyCode.T))
+        //{
+        //    deleteFile();
+        //}
+
+        if (SceneManager.GetActiveScene().buildIndex == 3)
         {
-            deleteFile();
+            WinMenuManager.instance.setPresentsGotten(numberOfPresentsCollected);
         }
     }
 
@@ -81,6 +107,7 @@ public class GameDataManager : MonoBehaviour
         {
             File.Delete(Application.persistentDataPath + "/gamesave.save");
             Debug.Log("File Deleted");
+            PlayerPrefs.SetInt("ftl", 0);
         }
     }
 
@@ -109,7 +136,7 @@ public class GameDataManager : MonoBehaviour
                 pickupableObjects[index].gameObject.SetActive(false);
             }
         }
-
+        numberOfPresentsCollected = saveData.presentsCollected;
         bossIsAlive = saveData.BossIsAlive;
         StartCoroutine(playerChanges(saveData));
     }
@@ -166,6 +193,7 @@ public class GameDataManager : MonoBehaviour
         saveData.playerSnowball = GameManager.Instance.mainPlayer.hasSnowBallPower;
         saveData.playerMaxHealth = GameManager.Instance.mainPlayer.maxPlayerHealth;
         saveData.presentsCollected = GameManager.Instance.mainPlayer.numberOfPresentsCollected;
+        PlayerPrefs.SetInt("nop", saveData.presentsCollected);
         saveData.xSpawn = PlayerSpawnLocation.x;
         saveData.ySpawn = PlayerSpawnLocation.y;
         saveData.BossIsAlive = bossIsAlive;

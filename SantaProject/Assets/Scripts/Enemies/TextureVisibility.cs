@@ -24,8 +24,8 @@ public class TextureVisibility : MonoBehaviour
         }
         else
         {
-                anim.ResetTrigger("Die");
-                anim.SetTrigger("Die");
+                anim.ResetTrigger("Dead");
+                anim.SetTrigger("Dead");
         }
 
     }
